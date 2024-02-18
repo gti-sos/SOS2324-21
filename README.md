@@ -6,7 +6,7 @@
   - [Alejandro Morilla Garcia](https://github.com/aaleejandro01)
   - [Jesus Manuel Méndez Martínez](https://github.com/jesmenmar)
 
-- **Project description**: Vamos a explorar la relación entre las causas de muerte a nivel mundial, el consumo de chocolate per cápita y el índice de felicidad global. Nuestro trabajo se centrará en analizar cómo estos tres aspectos están interconectados a través de datos provenientes de distintos conjuntos de datos mundiales.
+- **Project description**: We are going to explore the relation between death causes in a global level, chocolate consumption per capita and the global happiness index. Our work will focus on analyzing how these three aspects are interconnected through data from different global data sets.
 - **Repository**: [gti-sos/SOS2324-21](https://github.com/gti-sos/SOS2324-21)
 - **URL**: TBD
 -  **APIs**:
