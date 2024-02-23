@@ -1,0 +1,16 @@
+{
+  "name": "sos2324-21",
+  "version": "1.0.0",
+  "description": "subida index grupal",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "cool-ascii-faces": "^1.3.4",
+    "express": "^4.18.2"
+  }
+}
