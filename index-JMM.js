@@ -119,4 +119,9 @@ function meanOfFieldFromCountry(data, field, country){
     return res/filteredData.length;
 }
 
-console.log("El resultado es: " + meanOfFieldFromCountry(my_data, field, country));
+let res = meanOfFieldFromCountry(my_data, field, country);
+
+console.log("El resultado es: " + res);
+
+module.exports = res;
+
