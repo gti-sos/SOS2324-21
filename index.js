@@ -4,6 +4,7 @@ let express = require('express');
 
 let resJMM = require('./index-JMM.js');
 let resMRC = require('./index-MRC.js');
+let resAMG = require('./index-AMG.js');
 
 let app = express();
 
@@ -21,6 +22,10 @@ app.get('/samples/JMM', (req, res) => {
 
 app.get('/samples/MRC', (req, res) => {
     res.send(resMRC.media_por_pais(resMRC.datos_mrc, "country_name", "Afghanistan", "meningitis"))
+});
+
+app.get('/samples/AMG', (req, res) => {
+    res.send(resAMG.calcMediaCocPerPais(resAMG.datos, "U.S.A."))
 });
 
 app.listen(PORT, () => {
