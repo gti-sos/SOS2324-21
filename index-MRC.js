@@ -106,23 +106,32 @@ let datos = [
 
 // 2) Funcion de filtrado
 
-function calcularMediaPorPais(datos, campoGeografico, valor, atributo){
+const field = "country_name";
+const name = "Afghanistan";
+const disease = "meningitis";
+
+function calcularMediaPorPais(datos, field, name, disease){
     //fltramos por el campo geografico -> country_name
-    const datosFiltrados = datos.filter(dato => dato[campoGeografico] === valor);
+    const datosFiltrados = datos.filter(dato => dato[field] === name);
 
     //verificar si hay datos
     if(datosFiltrados.length === 0){
-        console.log(`No hay datos para el país ${valor}`);
+        console.log(`No hay datos para el país ${name}`);
         return 0;
     }
 
     //extraer los valores y calcular media
-    const valores = datosFiltrados.map(dato => dato[atributo]);
+    const valores = datosFiltrados.map(dato => dato[disease]);
     const sumaValores = valores.reduce((acum, valor) => acum + valor, 0);
     const media = sumaValores / valores.length;
 
-    console.log(`La media de afectados por ${atributo} para ${valor} es: ${media}`);
+    return media
+    //console.log(`La media de afectados por ${disease} para ${name} es: ${media}`);
 }
 
-calcularMediaPorPais(datos, 'country_name', 'Afghanistan', 'meningitis');
-//calcularMediaPorPais(datos, 'country_name', 'Afghanistan', 'parkinson');
+let res = calcularMediaPorPais(datos, field, name, disease);
+console.log(`La media de afectados es:` + res);
+
+
+module.exports = res;
+
