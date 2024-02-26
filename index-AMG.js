@@ -128,7 +128,11 @@ function calcMediaCocPerPais(conj, locat){
     res = conjFilt.forEach(n => {
         ac+=n.cocoa_percent;
     });
-    console.log("La media del porcentaje de cacao en", locat, "en", (ac/conjFilt.length).toFixed(2))
+    let media = ac/conjFilt.length
+    return "La media del porcentaje de cacao en " + locat + " en " + media
 }
 
 calcMediaCocPerPais(datos, "U.S.A.")
+
+module.exports.media_coc_per_pais = calcMediaCocPerPais;
+module.exports.datos_a = datos;

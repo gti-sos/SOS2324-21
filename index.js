@@ -25,7 +25,7 @@ app.get('/samples/MRC', (req, res) => {
 });
 
 app.get('/samples/AMG', (req, res) => {
-    res.send(resAMG.calcMediaCocPerPais(resAMG.datos, "U.S.A."))
+    res.send(resAMG.media_coc_per_pais(resAMG.datos_a, "U.S.A."))
 });
 
 app.listen(PORT, () => {
