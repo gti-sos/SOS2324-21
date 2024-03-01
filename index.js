@@ -6,6 +6,8 @@ let resJMM = require('./index-JMM.js');
 let resMRC = require('./index-MRC.js');
 let resAMG = require('./index-AMG.js');
 
+let api_MRC = require("./api/index-MRC.js");
+
 let app = express();
 
 const PORT = (process.env.PORT || 10000);
@@ -27,6 +29,8 @@ app.get('/samples/MRC', (req, res) => {
 app.get('/samples/AMG', (req, res) => {
     res.send(resAMG.media_coc_per_pais(resAMG.datos_a, "U.S.A."))
 });
+
+api_MRC.mrc_v1(app);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
