@@ -1,18 +1,21 @@
 let cool = require('cool-ascii-faces');
 let express = require('express');
-
+let bodyParser = require('body-parser')
 
 let resJMM = require('./index-JMM.js');
 let resMRC = require('./index-MRC.js');
 let resAMG = require('./index-AMG.js');
 
 let api_MRC = require("./api/index-MRC.js");
+let api_JMM = require("./api/index-JMM.js")
 
 let app = express();
 
 const PORT = (process.env.PORT || 10000);
 
 app.use(express.static("./root"));
+
+app.use(bodyParser.json());
 
 app.get('/cool', (req, res) => {
     res.send(`<html><body><h1>${cool()}</h1></body></html>`);
@@ -31,6 +34,7 @@ app.get('/samples/AMG', (req, res) => {
 });
 
 api_MRC.mrc_v1(app);
+api_JMM(app);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
