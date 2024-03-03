@@ -88,11 +88,10 @@ function API_MRC(app){
         //Devolver los datos de un país concreto
         const pais = req.params.country_name;
         const datosFiltrados = datos.filter(dato => dato.country_name === pais);
-        if (datosFiltrados.length === 0){ // Si no hay datos, devolver 404
-            res.sendStatus(404, "Not Found");
-        } else { // Si hay datos, devolver 200 y los datos correspondientes
+        if (datosFiltrados.length > 0){ // Si hay datos, devolverlos
             res.send(JSON.stringify(datosFiltrados));
-            res.sendStatus(200, "OK");
+        } else { // si no existen datos, devolver 404
+            res.sendStatus(404, "Not Found");
         }
     });
 
@@ -118,7 +117,7 @@ function API_MRC(app){
     app.delete(API_BASE + "/:country_name", (req, res) => {
         //Borrar un recurso en concreto, comprobando si existe
         const pais = req.params.country_name;
-        const datosFiltrados = datos.filter(dato => dato.country_name === pais);
+        const datosFiltrados = datos.filter(dato => dato.country_name !== pais);
 
         if (datosFiltrados.length < datos.length){ 
             datos=datosFiltrados;
@@ -127,7 +126,7 @@ function API_MRC(app){
             res.sendStatus(404, "Not Found");
         }
     });
-
+    
 }
 
 module.exports.mrc_v1 = API_MRC;
