@@ -8,6 +8,7 @@ let resAMG = require('./index-AMG.js');
 
 let api_MRC = require("./api/index-MRC.js");
 let api_JMM = require("./api/index-JMM.js")
+let api_AMG = require("./api/index-AMG.js");
 
 let app = express();
 
@@ -35,6 +36,7 @@ app.get('/samples/AMG', (req, res) => {
 
 api_MRC.mrc_v1(app);
 api_JMM(app);
+api_AMG(app);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
