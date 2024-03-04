@@ -119,11 +119,20 @@ module.exports = (app) => {
 
     app.post(API_BASE, (req, res) => {
         let report = req.body;
-        if(data.some(r => r.country_name === report.country_name && r.year=== report.year)) {
-            res.sendStatus(409, "Conflict");
-        } else{
-            data.push(report);
-            res.sendStatus(201, "Data Created");
+        let object_params = ["country_name","year","gdp","social_support","healthy_life_expectancy","generosity","possitive_affect","negative_affect"];
+        const queryParams = Object.keys(report);
+        const missingFields = object_params.filter(field => !queryParams.includes(field));
+        if (missingFields.length > 0) {
+            return res.status(400).send("Missing fields: " + missingFields.join(", "));
+        } else if(queryParams.length !== 8) {
+            return res.sendStatus(400, "Incorrect fields size");
+        } else {
+            if(data.some(r => r.country_name === report.country_name && r.year=== report.year)) {
+                res.sendStatus(409, "Conflict");
+            } else{
+                data.push(report);
+                res.sendStatus(201, "Data Created");
+            }
         }
     });
 
@@ -157,15 +166,25 @@ module.exports = (app) => {
 
     app.put(API_BASE + "/:country_name", (req, res) => {
         let body = req.body;
-        if (data.filter(r => r.country_name === req.params.country_name).length === 0){ // Si no se encuentra el recurso, error 404
-            res.sendStatus(404, "Not Found");
-        } else { 
-            for (let i = 0; i < data.length; i++){
-                if (data[i].country_name === req.params.country_name){
-                    data[i] = body;
+        let object_params = ["country_name","year","gdp","social_support","healthy_life_expectancy","generosity","possitive_affect","negative_affect"];
+        const queryParams = Object.keys(body);
+        const missingFields = object_params.filter(field => !queryParams.includes(field));
+        if (missingFields.length > 0) {
+            return res.status(400).send("Missing fields: " + missingFields.join(", "));
+        } else if(queryParams.length !== 8) {
+            return res.sendStatus(400, "Incorrect fields size");
+        } else {
+            
+            if (data.filter(r => r.country_name === req.params.country_name).length === 0){ // Si no se encuentra el recurso, error 404
+                res.sendStatus(404, "Not Found");
+            } else { 
+                for (let i = 0; i < data.length; i++){
+                    if (data[i].country_name === req.params.country_name){
+                        data[i] = body;
+                    }
                 }
+                res.sendStatus(200, "OK");
             }
-            res.sendStatus(200, "OK");
         }
     });
 
