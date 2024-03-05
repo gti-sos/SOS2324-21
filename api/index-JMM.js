@@ -103,18 +103,24 @@ var initialReports = [
     }
 ];
 
-data=[];
-
-module.exports = (app) => {
+module.exports = (app, db) => {
 
     app.get(API_BASE+"/loadInitialData", (req,res) => {
-        if(data.length === 0) { //Si esta vacio, entonces crea los datos
-            data = [...initialReports];
-            res.sendStatus(201, "Data Created");
-        } else {
-            res.send(JSON.stringify(data));
-            //res.sendStatus(200, "Ok");
-        }
+        db.find({}, (err, reports) => {
+            if(err){
+                res.sendStatus(500, "Internal Error");
+            } else {
+                if(reports.length === 0) { //Si esta vacio, entonces crea los datos
+                    db.insert(initialReports);
+                    res.sendStatus(201, "Data Created");
+                } else {
+                    res.send(JSON.stringify(reports.map((r) => {
+                        delete r._id;
+                        return r;
+                    })));
+                }
+            }
+        })
     });
 
     app.post(API_BASE, (req, res) => {
@@ -127,18 +133,32 @@ module.exports = (app) => {
         } else if(queryParams.length !== 8) {
             return res.sendStatus(400, "Incorrect fields size");
         } else {
-            if(data.some(r => r.country_name === report.country_name && r.year=== report.year)) {
-                res.sendStatus(409, "Conflict");
-            } else{
-                data.push(report);
-                res.sendStatus(201, "Data Created");
-            }
+            db.find({}, (err, reports) => {
+                if(err){
+                    res.sendStatus(500, "Internal Error");
+                } else {
+                    if(reports.some(r => r.country_name === report.country_name && r.year=== report.year)) {
+                        res.sendStatus(409, "Conflict");
+                    } else{
+                        db.insert(report);
+                        res.sendStatus(201, "Data Created");
+                    }
+                }
+            })
         }
     });
 
     app.get(API_BASE, (req, res) => {
-        res.send(JSON.stringify(data));
-        //res.sendStatus(200, "OK");
+        db.find({}, (err, reports) => {
+            if(err){
+                res.sendStatus(500, "Internal Error");
+            } else {
+                res.send(JSON.stringify(reports.map((r) => {
+                    delete r._id;
+                    return r;
+                })));
+            }
+        })
     });
 
     app.put(API_BASE, (req, res) => {
@@ -146,18 +166,33 @@ module.exports = (app) => {
     });
 
     app.delete(API_BASE, (req, res) => {
-        data = []; //Elimina todos los datos
-        res.sendStatus(200, "Deleted");
+        db.remove({}, { multi: true }, function (err, numRemoved) {
+            if(err){
+                res.sendStatus(500, "Internal Error");
+            } else {
+                res.sendStatus(200, "Deleted");
+            }
+        });
     });
 
     app.get(API_BASE + "/:country_name", (req, res) => {
         const country = req.params.country_name;
-        const countryData = data.filter(r => r.country_name === country);
-        if (countryData.length > 0) {
-            res.send(countryData);
-        } else {
-            res.sendStatus(404, "Not found");
-        }
+        db.find({}, (err, reports) => {
+            if(err){
+                res.sendStatus(500, "Internal Error");
+            } else {
+               reportsData = reports.map((r) => {
+                    delete r._id;
+                    return r;
+                });
+                const countryData = reportsData.filter(r => r.country_name === country);
+                if (countryData.length > 0) {
+                    res.send(countryData);
+                } else {
+                    res.sendStatus(404, "Not found");
+                }
+            }
+        })
     });
 
     app.post(API_BASE + "/:country_name", (req, res) => {
@@ -174,30 +209,39 @@ module.exports = (app) => {
         } else if(queryParams.length !== 8) {
             return res.sendStatus(400, "Incorrect fields size");
         } else {
-            
-            if (data.filter(r => r.country_name === req.params.country_name).length === 0){ // Si no se encuentra el recurso, error 404
-                res.sendStatus(404, "Not Found");
-            } else { 
-                for (let i = 0; i < data.length; i++){
-                    if (data[i].country_name === req.params.country_name){
-                        data[i] = body;
-                    }
+            db.find({}, (err, reports) => {
+                if (err) {
+                    res.sendStatus(500, "Internal Error");
+                } else {
+                    db.update({"country_name": req.params.country_name}, {$set: body}, (err,numUpdated) => {
+                        if (err) {
+                          res.sendStatus(500, "Internal Error");
+                        }else{
+                          if (numUpdated===0) {
+                            res.sendStatus(404, "Not found");
+                          } else {
+                            res.sendStatus(200, "Ok");
+                          }
+                        }
+                    });
                 }
-                res.sendStatus(200, "OK");
-            }
+            }); 
         }
     });
 
     app.delete(API_BASE + "/:country_name", (req, res) =>{
         const country = req.params.country_name;
-        const dataLength = data.length;
-        data = data.filter(r => r.country_name !== country);
-
-        if (data.length < dataLength) {
-            res.sendStatus(200, "Deleted");
-        } else {
-            res.sendStatus(404, "Not found");
-        }
+        db.remove({ "country_name": country},{},(err,numRemoved)=>{
+            if(err){
+                res.sendStatus(500,"Internal Error");
+            }else{
+               if(numRemoved >= 1){
+                    res.sendStatus(200,"Deleted");
+               } else {
+                    res.sendStatus(404,"Not found");
+               }
+            }
+        });
     });
 
 };
