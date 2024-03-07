@@ -1,3 +1,5 @@
+const { query } = require("express");
+
 const API_BASE = '/api/v1/happiness-reports';
 
 var initialReports = [
@@ -106,7 +108,13 @@ var initialReports = [
 module.exports = (app, db) => {
 
     app.get(API_BASE+"/loadInitialData", (req,res) => {
-        db.find({}, (err, reports) => {
+        // Paginación
+
+        const limit = parseInt(req.query.limit) || 10; // Comprueba si en la petición está el parámetro que indica cuántos elementos mostrar por página
+        const offset = parseInt(req.query.offset) || 0; // Comprueba si hay desplazamiento en la petición
+
+        // Consulta con la paginación
+        db.find({}).skip(offset).limit(limit).exec((err, reports) => {
             if(err){
                 res.sendStatus(500, "Internal Error");
             } else {
@@ -120,7 +128,7 @@ module.exports = (app, db) => {
                     })));
                 }
             }
-        })
+        });
     });
 
     app.post(API_BASE, (req, res) => {
@@ -131,7 +139,7 @@ module.exports = (app, db) => {
         if (missingFields.length > 0) {
             return res.status(400).send("Missing fields: " + missingFields.join(", "));
         } else if(queryParams.length !== 8) {
-            return res.sendStatus(400, "Incorrect fields size");
+            return res.status(400).send("Incorrect fields size");
         } else {
             db.find({}, (err, reports) => {
                 if(err){
@@ -149,7 +157,28 @@ module.exports = (app, db) => {
     });
 
     app.get(API_BASE, (req, res) => {
-        db.find({}, (err, reports) => {
+        // Paginación
+        const limit = parseInt(req.query.limit) || 10; // Comprueba si en la petición está el parámetro que indica cuántos elementos mostrar por página
+        const offset = parseInt(req.query.offset) || 0; // Comprueba si hay desplazamiento en la petición
+
+        // Parámetros de mis objetos
+
+        let object_params = ["country_name","year","gdp","social_support","healthy_life_expectancy","generosity","possitive_affect","negative_affect"];
+
+        // Construir la consulta dinámicamente
+        const consulta = {};
+
+        for (let key in req.query) {
+            if (key !== 'limit' && key !== 'offset') {
+                if (!object_params.includes(key)) {
+                    return res.status(400).json({ error: `El campo '${key}' no es válido` });
+                }
+                consulta[key] = isNaN(req.query[key]) ? new RegExp(req.query[key], 'i') : parseFloat(req.query[key]);
+            }
+        }
+
+        // Consulta con la paginación
+        db.find(consulta).skip(offset).limit(limit).exec((err, reports) => {
             if(err){
                 res.sendStatus(500, "Internal Error");
             } else {
@@ -207,25 +236,19 @@ module.exports = (app, db) => {
         if (missingFields.length > 0) {
             return res.status(400).send("Missing fields: " + missingFields.join(", "));
         } else if(queryParams.length !== 8) {
-            return res.sendStatus(400, "Incorrect fields size");
+            return res.status(400).send("Incorrect fields size");
         } else {
-            db.find({}, (err, reports) => {
+            db.update({"country_name": req.params.country_name}, {$set: body}, (err,numUpdated) => {
                 if (err) {
                     res.sendStatus(500, "Internal Error");
-                } else {
-                    db.update({"country_name": req.params.country_name}, {$set: body}, (err,numUpdated) => {
-                        if (err) {
-                          res.sendStatus(500, "Internal Error");
-                        }else{
-                          if (numUpdated===0) {
-                            res.sendStatus(404, "Not found");
-                          } else {
-                            res.sendStatus(200, "Ok");
-                          }
-                        }
-                    });
+                }else{
+                    if (numUpdated===0) {
+                        res.sendStatus(404, "Not found");
+                    } else {
+                        res.sendStatus(200, "Ok");
+                    }
                 }
-            }); 
+            });
         }
     });
 
