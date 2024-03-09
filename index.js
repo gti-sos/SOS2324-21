@@ -37,6 +37,14 @@ app.get('/samples/AMG', (req, res) => {
     res.send(resAMG.media_coc_per_pais(resAMG.datos_a, "U.S.A."))
 });
 
+app.get('/api/v1/happiness-reports/docs', (req, res) => {
+    res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swf');
+});
+
+app.get('/api/v1/happiness-reports/docs/utils-demo', (req, res) => {
+    res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swg');
+});
+
 api_MRC.mrc_v1(app);
 api_JMM(app, dbHappiness);
 api_AMG(app);

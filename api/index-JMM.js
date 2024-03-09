@@ -1,5 +1,3 @@
-const { query } = require("express");
-
 const API_BASE = '/api/v1/happiness-reports';
 
 var initialReports = [
