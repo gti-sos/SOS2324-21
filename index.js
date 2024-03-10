@@ -1,10 +1,7 @@
-// let cool = require('cool-ascii-faces');
 let express = require('express');
 let bodyParser = require('body-parser')
 let dataStore = require('nedb');
 
-// let resJMM = require('./index-JMM.js');
-//let resMRC = require('./index-MRC.js');
 let resAMG = require('./index-AMG.js');
 
 let api_MRC = require("./api/index-MRC.js");
@@ -22,18 +19,6 @@ app.use(express.static("./root"));
 
 app.use(bodyParser.json());
 
-/*app.get('/cool', (req, res) => {
-    res.send(`<html><body><h1>${cool()}</h1></body></html>`);
-});*/
-
-/*app.get('/samples/JMM', (req, res) => {
-    res.send(`<html><body><h1>El resultado de la operación es ${resJMM}</h1></body></html>`);
-});*/
-
-/*app.get('/samples/MRC', (req, res) => {
-    res.send(resMRC.media_por_pais(resMRC.datos_mrc, "country_name", "Afghanistan", "meningitis"))
-});*/
-
 app.get('/samples/AMG', (req, res) => {
     res.send(resAMG.media_coc_per_pais(resAMG.datos_a, "U.S.A."))
 });
@@ -44,6 +29,10 @@ app.get('/api/v1/happiness-reports/docs', (req, res) => {
 
 app.get('/api/v1/happiness-reports/docs/utils-demo', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swg');
+});
+
+app.get('/api/v1/cause-of-deaths/docs', (req, res) => {
+    res.redirect('https://documenter.getpostman.com/view/32977574/2sA2xb7GDm');
 });
 
 api_JMM(app, dbHappiness);
