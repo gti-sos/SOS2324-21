@@ -27,10 +27,6 @@ app.get('/api/v1/happiness-reports/docs', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swf');
 });
 
-app.get('/api/v1/happiness-reports/docs/utils-demo', (req, res) => {
-    res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swg');
-});
-
 app.get('/api/v1/cause-of-deaths/docs', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32977574/2sA2xb7GDm');
 });

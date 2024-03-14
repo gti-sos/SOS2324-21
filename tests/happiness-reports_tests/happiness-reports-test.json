@@ -3,9 +3,387 @@
 		"_postman_id": "2d224ed1-be54-470a-b851-ed3efdf41988",
 		"name": "happiness-reports-status-codes-check",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "32994781"
+		"_exporter_id": "32994781",
+		"_collection_link": "https://sos2324-21.postman.co/workspace/SOS-21-Workspace~8bb8fc11-4301-4a6c-8626-bcccc27381b4/collection/32994781-2d224ed1-be54-470a-b851-ed3efdf41988?action=share&source=collection_link&creator=32994781"
 	},
 	"item": [
+		{
+			"name": "API_BASE",
+			"item": [
+				{
+					"name": "Load Initial Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200 or 201', () => {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201])\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}/loadInitialData",
+							"host": [
+								"{{SERVER_SOS}}"
+							],
+							"path": [
+								"loadInitialData"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET all data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}",
+							"host": [
+								"{{SERVER_SOS}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST example",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 2000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_SOS}}",
+							"host": [
+								"{{SERVER_SOS}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT TRY (error 405)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}",
+							"host": [
+								"{{SERVER_SOS}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE all data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}",
+							"host": [
+								"{{SERVER_SOS}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RESOURCE",
+			"item": [
+				{
+					"name": "POST example Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 2000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_SOS}}",
+							"host": [
+								"{{SERVER_SOS}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET personalizado con limit y offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}?country_name=Afghanistan&limit=5&offset=1",
+							"host": [
+								"{{SERVER_SOS}}"
+							],
+							"query": [
+								{
+									"key": "country_name",
+									"value": "Afghanistan"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "offset",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET por ID (país)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}?country_name=NORUEGA&year=2000",
+							"host": [
+								"{{SERVER_SOS}}"
+							],
+							"query": [
+								{
+									"key": "country_name",
+									"value": "NORUEGA"
+								},
+								{
+									"key": "year",
+									"value": "2000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST resource",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}/NORUEGA/2000",
+							"host": [
+								"{{SERVER_SOS}}"
+							],
+							"path": [
+								"NORUEGA",
+								"2000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT resource",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 100000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_SOS}}/NORUEGA/2000",
+							"host": [
+								"{{SERVER_SOS}}"
+							],
+							"path": [
+								"NORUEGA",
+								"2000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE resource",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_SOS}}/NORUEGA/100000",
+							"host": [
+								"{{SERVER_SOS}}"
+							],
+							"path": [
+								"NORUEGA",
+								"100000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Load Initial Data",
 			"event": [
@@ -32,7 +410,8 @@
 					"path": [
 						"loadInitialData"
 					]
-				}
+				},
+				"description": "Generates base examples"
 			},
 			"response": []
 		},
@@ -59,7 +438,8 @@
 					"host": [
 						"{{SERVER_SOS}}"
 					]
-				}
+				},
+				"description": "Checks if the previous data is correctly generated"
 			},
 			"response": []
 		},
@@ -95,7 +475,8 @@
 					"host": [
 						"{{SERVER_SOS}}"
 					]
-				}
+				},
+				"description": "Adds an example to check future status codes"
 			},
 			"response": []
 		},
@@ -218,7 +599,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -226,12 +608,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA",
+					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
-						"NORUEGA"
+						"NORUEGA",
+						"2000"
 					]
 				}
 			},
@@ -308,7 +691,8 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -316,12 +700,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA",
+					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
-						"NORUEGA"
+						"NORUEGA",
+						"2000"
 					]
 				}
 			},
@@ -338,7 +723,8 @@
 							"    pm.response.to.have.status(405);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -346,12 +732,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA",
+					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
-						"NORUEGA"
+						"NORUEGA",
+						"2000"
 					]
 				}
 			},
@@ -368,7 +755,8 @@
 							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -385,12 +773,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA",
+					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
-						"NORUEGA"
+						"NORUEGA",
+						"2000"
 					]
 				}
 			},
@@ -407,7 +796,8 @@
 							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -424,12 +814,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA",
+					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
-						"NORUEGA"
+						"NORUEGA",
+						"2000"
 					]
 				}
 			},
@@ -446,7 +837,8 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -463,12 +855,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER_SOS}}/AFRICA",
+					"raw": "{{SERVER_SOS}}/AFRICA/2000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
-						"AFRICA"
+						"AFRICA",
+						"2000"
 					]
 				}
 			},
@@ -485,7 +878,8 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -493,12 +887,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA",
+					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
-						"NORUEGA"
+						"NORUEGA",
+						"2000"
 					]
 				}
 			},

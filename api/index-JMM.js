@@ -202,9 +202,10 @@ module.exports = (app, db) => {
         });
     });
 
-    app.get(API_BASE + "/:country_name", (req, res) => {
+    app.get(API_BASE + "/:country_name/:year", (req, res) => {
         const country = req.params.country_name;
-        db.find({}, (err, reports) => {
+        const year = parseInt(req.params.year);
+        db.find({"country_name": country, "year": year}, (err, reports) => {
             if(err){
                 res.sendStatus(500, "Internal Error");
             } else {
@@ -226,8 +227,13 @@ module.exports = (app, db) => {
         res.sendStatus(405, "Method not Allowed"); // No se puede hacer post a un recurso concreto
     });
 
-    app.put(API_BASE + "/:country_name", (req, res) => {
+    app.post(API_BASE + "/:country_name/:year", (req, res) => {
+        res.sendStatus(405, "Method not Allowed"); // No se puede hacer post a un recurso concreto
+    });
+
+    app.put(API_BASE + "/:country_name/:year", (req, res) => {
         let body = req.body;
+        const year = parseInt(req.params.year);
         let object_params = ["country_name","year","gdp","social_support","healthy_life_expectancy","generosity","possitive_affect","negative_affect"];
         const queryParams = Object.keys(body);
         const missingFields = object_params.filter(field => !queryParams.includes(field));
@@ -236,7 +242,7 @@ module.exports = (app, db) => {
         } else if(queryParams.length !== 8) {
             return res.status(400).send("Incorrect fields size");
         } else {
-            db.update({"country_name": req.params.country_name}, {$set: body}, (err,numUpdated) => {
+            db.update({"country_name": req.params.country_name, "year": year}, {$set: body}, (err,numUpdated) => {
                 if (err) {
                     res.sendStatus(500, "Internal Error");
                 }else{
@@ -250,9 +256,11 @@ module.exports = (app, db) => {
         }
     });
 
-    app.delete(API_BASE + "/:country_name", (req, res) =>{
+    app.delete(API_BASE + "/:country_name/:year", (req, res) =>{
         const country = req.params.country_name;
-        db.remove({ "country_name": country},{},(err,numRemoved)=>{
+        const year = parseInt(req.params.year);
+        db.remove({"country_name": country, "year": year},{},(err,numRemoved)=>{
+
             if(err){
                 res.sendStatus(500,"Internal Error");
             }else{
