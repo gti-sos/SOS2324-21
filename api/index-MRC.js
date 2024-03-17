@@ -4,7 +4,7 @@ const API_BASE = '/api/v1/cause-of-deaths';
 
 var initialReports = [
     { country_name: "Afghanistan", code: "AFG", year: 1990, meningitis: 2159, alzheimer: 1116, parkinson: 371, nutricional_deficiencie: 2087, malaria: 93 },
-    { country_name: "Afghanistan", code: "AFG", year: 1991, meningitis: 2218, alzheimer: 1136, parkinson: 374, nutricional_deficiencie: 2153, malaria: 189 },
+    { country_name: "Afghanistan", code: "AFG", year: 1991, meningitis: 2218, alzheimer: 1136, parkinson: 374, nutricional_deficiencie: 2153, malaria: 199 },
     { country_name: "Afghanistan", code: "AFG", year: 1992, meningitis: 2475, alzheimer: 1162, parkinson: 378, nutricional_deficiencie: 2441, malaria: 239 },
     { country_name: "Afghanistan", code: "AFG", year: 1993, meningitis: 2812, alzheimer: 1187, parkinson: 384, nutricional_deficiencie: 2837, malaria: 108 },
     { country_name: "Afghanistan", code: "AFG", year: 1994, meningitis: 3027, alzheimer: 1211, parkinson: 391, nutricional_deficiencie: 3081, malaria: 211 },
