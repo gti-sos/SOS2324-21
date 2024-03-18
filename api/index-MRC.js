@@ -11,7 +11,7 @@ var initialReports = [
     { country_name: "Afghanistan", code: "AFG", year: 1997, meningitis: 3304, alzheimer: 1253, parkinson: 402, nutricional_deficiencie: 3250, malaria: 240 },
     { country_name: "Afghanistan", code: "AFG", year: 1998, meningitis: 3281, alzheimer: 1267, parkinson: 409, nutricional_deficiencie: 3193, malaria: 563 },
     { country_name: "Afghanistan", code: "AFG", year: 1999, meningitis: 3200, alzheimer: 1281, parkinson: 409, nutricional_deficiencie: 3115, malaria: 468 }
-            
+
 ];
 
 module.exports = (app, db) => {
@@ -24,10 +24,10 @@ module.exports = (app, db) => {
 
         // Consulta con la paginación
         db.find({}).skip(offset).limit(limit).exec((err, data) => {
-            if (err){
+            if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
-                if (data.length === 0){ //si esta vacío, crea los datos
+                if (data.length === 0) { //si esta vacío, crea los datos
                     db.insert(initialReports);
                     res.sendStatus(201, "Data Created");
                 } else {
@@ -43,21 +43,21 @@ module.exports = (app, db) => {
     // 1 POST
     app.post(API_BASE + "/", (req, res) => {
         let report = req.body;
-        let object_params = ["country_name","code","year","meningitis","alzheimer","parkinson","nutricional_deficiencie","malaria"];
+        let object_params = ["country_name", "code", "year", "meningitis", "alzheimer", "parkinson", "nutricional_deficiencie", "malaria"];
         const queryParams = Object.keys(report);
         const missingFields = object_params.filter(field => !queryParams.includes(field));
         if (missingFields.length > 0) {
             return res.status(400).send("Missing fields: " + missingFields.join(", "));
-        } else if(queryParams.length !== 8) {
+        } else if (queryParams.length !== 8) {
             return res.status(400).send("Incorrect fields size");
         } else {
             db.find({}, (err, reports) => {
-                if(err){
+                if (err) {
                     res.sendStatus(500, "Internal Error");
                 } else {
-                    if(reports.some(r => r.country_name === report.country_name && r.year=== report.year)) {
+                    if (reports.some(r => r.country_name === report.country_name && r.year === report.year)) {
                         res.sendStatus(409, "Conflict");
-                    } else{
+                    } else {
                         db.insert(report);
                         res.sendStatus(201, "Data Created");
                     }
@@ -66,7 +66,7 @@ module.exports = (app, db) => {
         }
 
     });
-    
+
     // 1 GET
     app.get(API_BASE + "/", (req, res) => {
         // Paginacion
@@ -74,15 +74,15 @@ module.exports = (app, db) => {
         const offset = parseInt(req.query.offset) || 0;
 
         // parametros de mi objeto
-        let object_params = ["country_name","code","year","meningitis","alzheimer","parkinson","nutricional_deficiencie","malaria"];
+        let object_params = ["country_name", "code", "year", "meningitis", "alzheimer", "parkinson", "nutricional_deficiencie", "malaria"];
 
         //construir consulta dinamica
         const consulta = {};
 
         for (let key in req.query) {
-            if (key!="limit" && key!="offset"){
-                if (!object_params.includes(key)){
-                    return res.status(400).json({error: `El campos '${key}' no es válido`});
+            if (key != "limit" && key != "offset") {
+                if (!object_params.includes(key)) {
+                    return res.sendStatus(400).json({ error: `El campos '${key}' no es válido` });
                 }
                 consulta[key] = isNaN(req.query[key]) ? new RegExp(req.query[key], 'i') : parseFloat(req.query[key]);
             }
@@ -90,7 +90,7 @@ module.exports = (app, db) => {
 
         // consulta con la paginacion
         db.find(consulta).skip(offset).limit(limit).exec((err, reports) => {
-            if(err){
+            if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
                 res.send(JSON.stringify(reports.map((r) => {
@@ -112,7 +112,7 @@ module.exports = (app, db) => {
     // 1 DELETE
     app.delete(API_BASE + "/", (req, res) => {
         db.remove({}, { multi: true }, function (err, numRemoved) {
-            if(err){
+            if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
                 res.sendStatus(200, "OK");
@@ -131,7 +131,7 @@ module.exports = (app, db) => {
         //Devolver los datos de un país concreto
         const country = req.params.country_name;
         db.find({}, (err, reports) => {
-            if(err){
+            if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
                 reportsData = reports.map((r) => {
@@ -140,7 +140,7 @@ module.exports = (app, db) => {
                 });
                 const countryData = reportsData.filter(r => r.country_name === country);
                 if (countryData.length > 0) {
-                    res.send(countryData);
+                    res.send(JSON.stringify(countryData));
                 } else {
                     res.sendStatus(404, "Not found");
                 }
@@ -152,19 +152,19 @@ module.exports = (app, db) => {
     app.put(API_BASE + "/:country_name", (req, res) => {
         //actualizar un recurso en concreto
         let body = req.body;
-        let object_params = ["country_name","code","year","meningitis","alzheimer","parkinson","nutricional_deficiencie","malaria"];
+        let object_params = ["country_name", "code", "year", "meningitis", "alzheimer", "parkinson", "nutricional_deficiencie", "malaria"];
         const queryParams = Object.keys(body);
         const missingFields = object_params.filter(field => !queryParams.includes(field));
         if (missingFields.length > 0) {
-            return res.status(400).send("Missing fields: " + missingFields.join(", "));
-        } else if(queryParams.length !== 8) {
-            return res.status(400).send("Incorrect fields size");
+            return res.sendStatus(400), "Missing fields: " + missingFields.join(", ");
+        } else if (queryParams.length !== 8) {
+            return res.sendStatus(400, "Incorrect fields size");
         } else {
-            db.update({"country_name": req.params.country_name}, {$set: body}, (err,numUpdated) => {
+            db.update({ "country_name": req.params.country_name }, { $set: body }, (err, numUpdated) => {
                 if (err) {
                     res.sendStatus(500, "Internal Server Error");
-                }else{
-                    if (numUpdated===0) {
+                } else {
+                    if (numUpdated === 0) {
                         res.sendStatus(404, "Not Found");
                     } else {
                         res.sendStatus(200, "OK");
@@ -182,7 +182,78 @@ module.exports = (app, db) => {
             if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
-                if (numRemoved >=1) {
+                if (numRemoved >= 1) {
+                    res.sendStatus(200, "Deleted");
+                } else {
+                    res.sendStatus(404, "Not Found");
+                }
+            }
+        });
+    });
+
+    // por dos campos
+    // GET 3
+    app.get(API_BASE + "/:country_name/:year", (req, res) => {
+        //Devolver los datos de un país concreto
+        const country = req.params.country_name;
+        db.findOne({}, (err, reports) => {
+            if (err) {
+                res.sendStatus(500, "Internal Server Error");
+            } else {
+                reportsData = reports.map((r) => {
+                    delete r._id;
+                    return r;
+                });
+                const countryData = reportsData.filter(r => r.country_name === country && r.year === parseInt(req.params.year));
+                if (countryData.length > 0) {
+                    res.send(JSON.stringify(countryData));
+                } else {
+                    res.sendStatus(404, "Not found");
+                }
+            }
+        })
+    });
+
+    // 3 PUT
+    app.put(API_BASE + "/:country_name/:year", (req, res) => {
+        //actualizar un recurso en concreto
+        let body = req.body;
+        let object_params = ["country_name", "code", "year", "meningitis", "alzheimer", "parkinson", "nutricional_deficiencie", "malaria"];
+        const queryParams = Object.keys(body);
+        const missingFields = object_params.filter(field => !queryParams.includes(field));
+        if (missingFields.length > 0) {
+            return res.status(400).send("Missing fields: " + missingFields.join(", "));
+        } else if (queryParams.length !== 8) {
+            return res.status(400).send("Incorrect fields size");
+        } else if (body.year === parseInt(req.params.year) && body.country_name === req.params.country_name) {
+            db.update({ "country_name": req.params.country_name }, { "year": req.params.year }, { $set: body }, (err, numUpdated) => {
+                if (err) {
+                    res.sendStatus(500, "Internal Server Error");
+                } else {
+                    if (numUpdated === 0) {
+                        res.sendStatus(404, "Not Found");
+                    } else {
+                        res.sendStatus(200, "OK");
+                    }
+                }
+            });
+        }
+        else {
+            res.sendStatus(400, "Bad Request");
+        }
+
+    });
+
+    // 3 DELETE
+    app.delete(API_BASE + "/:country_name/:year", (req, res) => {
+        //Borrar un recurso en concreto, comprobando si existe
+        const country = req.params.country_name;
+        const year = parseInt(req.params.year);
+        db.remove({ "country_name": country }, {"year": year}, (err, numRemoved) => {
+            if (err) {
+                res.sendStatus(500, "Internal Server Error");
+            } else {
+                if (numRemoved >= 1) {
                     res.sendStatus(200, "Deleted");
                 } else {
                     res.sendStatus(404, "Not Found");
