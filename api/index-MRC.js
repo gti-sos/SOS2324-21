@@ -196,7 +196,7 @@ module.exports = (app, db) => {
     app.get(API_BASE + "/:country_name/:year", (req, res) => {
         //Devolver los datos de un país concreto
         const country = req.params.country_name;
-        db.findOne({}, (err, reports) => {
+        db.find({}, (err, reports) => {
             if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
@@ -206,7 +206,7 @@ module.exports = (app, db) => {
                 });
                 const countryData = reportsData.filter(r => r.country_name === country && r.year === parseInt(req.params.year));
                 if (countryData.length > 0) {
-                    res.send(JSON.stringify(countryData));
+                    res.send(JSON.stringify(countryData[0]));
                 } else {
                     res.sendStatus(404, "Not found");
                 }
