@@ -27,7 +27,7 @@ module.exports = (app, db) => {
             else{
                 if(data.lenght === 0){
                     db.insert(initialChocolate);
-                    res.sendStatus(201, "Data Created")
+                    res.sendStatus(201, "Data Created");
                 }
                 else{
                     res.send(JSON.stringify(data.map((d) => {
