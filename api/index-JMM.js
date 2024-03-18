@@ -237,11 +237,12 @@ module.exports = (app, db) => {
         let object_params = ["country_name","year","gdp","social_support","healthy_life_expectancy","generosity","possitive_affect","negative_affect"];
         const queryParams = Object.keys(body);
         const missingFields = object_params.filter(field => !queryParams.includes(field));
+
         if (missingFields.length > 0) {
             return res.status(400).send("Missing fields: " + missingFields.join(", "));
         } else if(queryParams.length !== 8) {
             return res.status(400).send("Incorrect fields size");
-        } else {
+        } else if (year===body.year && req.params.country_name === body.country_name){
             db.update({"country_name": req.params.country_name, "year": year}, {$set: body}, (err,numUpdated) => {
                 if (err) {
                     res.sendStatus(500, "Internal Error");
@@ -253,6 +254,8 @@ module.exports = (app, db) => {
                     }
                 }
             });
+        } else {
+            return res.sendStatus(400).send("Body data and request params doesnt match");
         }
     });
 
