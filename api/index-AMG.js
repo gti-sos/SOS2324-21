@@ -47,7 +47,7 @@ module.exports = (app, db) => {
         if(missingFields.lenght > 0){
             return res.status(400).send("Missing fields: " + missingFields.join(", "));
         }
-        else if(queryParams.length !== 8) {
+        else if(queryParams.length !== 10) {
             return res.status(400).send("Incorrect fields size");
         }
         else{
