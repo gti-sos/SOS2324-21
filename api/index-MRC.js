@@ -1,7 +1,5 @@
 const API_BASE = '/api/v1/cause-of-deaths';
 
-
-
 var initialReports = [
     { country_name: "Afghanistan", code: "AFG", year: 1990, meningitis: 2159, alzheimer: 1116, parkinson: 371, nutricional_deficiencie: 2087, malaria: 93 },
     { country_name: "Afghanistan", code: "AFG", year: 1991, meningitis: 2218, alzheimer: 1136, parkinson: 374, nutricional_deficiencie: 2153, malaria: 199 },

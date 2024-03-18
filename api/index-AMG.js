@@ -14,7 +14,6 @@ var initialChocolate = [
 ];
 
 module.exports = (app, db) => {
-
     app.get(API_BASE + "/loadInitialData", (req, res) => {
 
         const limit = parseInt(req.query.limit) || 10; // Comprueba si en la petición está el parámetro que indica cuántos elementos mostrar por página
@@ -25,7 +24,7 @@ module.exports = (app, db) => {
                 res.sendStatus(500, "Internal Server Error");
             }
             else{
-                if(data.lenght === 0){
+                if(data.length === 0){
                     db.insert(initialChocolate);
                     res.sendStatus(201, "Data Created");
                 }
