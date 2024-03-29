@@ -14,7 +14,7 @@ var initialReports = [
 
 ];
 
-module.exports = (app, db) => {
+function loadBackendMRC(app, db){
 
     app.get(API_BASE + "/loadInitialData", (req, res) => {
 
@@ -263,3 +263,5 @@ module.exports = (app, db) => {
     });
 
 };
+
+export {loadBackendMRC};

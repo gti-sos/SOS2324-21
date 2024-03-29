@@ -103,7 +103,7 @@ var initialReports = [
     }
 ];
 
-module.exports = (app, db) => {
+function api_JMM(app, db){
 
     app.get(API_BASE+"/loadInitialData", (req,res) => {
         // Paginación
@@ -277,3 +277,5 @@ module.exports = (app, db) => {
     });
 
 };
+
+export {api_JMM};

@@ -1,10 +1,11 @@
-let express = require('express');
-let bodyParser = require('body-parser')
-let dataStore = require('nedb');
+import express from 'express';
+import bodyParser from 'body-parser';
+import dataStore from'nedb';
+import {handler} from "./front/build/handler.js"; //asi conectamos con el frontend
 
-let api_MRC = require("./api/index-MRC.js");
-let api_JMM = require("./api/index-JMM.js")
-let api_AMG = require("./api/index-AMG.js");
+import {loadBackendMRC} from "./back/backend-MRC.js";
+import {api_JMM} from "./back/index-JMM.js";
+import {api_AMG} from "./back/index-AMG.js";
 
 let dbHappiness = new dataStore();
 let dbCauseDeaths = new dataStore();
@@ -14,7 +15,7 @@ let app = express();
 
 const PORT = (process.env.PORT || 10000);
 
-app.use(express.static("./root"));
+//app.use(express.static("./root"));
 
 app.use(bodyParser.json());
 
@@ -27,8 +28,10 @@ app.get('/api/v1/cause-of-deaths/docs', (req, res) => {
 });
 
 api_JMM(app, dbHappiness);
-api_MRC(app, dbCauseDeaths);
+loadBackendMRC(app, dbCauseDeaths);
 api_AMG(app, dbChocolates);
+
+app.use(handler);
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)

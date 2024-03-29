@@ -13,7 +13,7 @@ var initialChocolate = [
     {ref: 1011, company_manufacture: "A. Morin", company_location: "France", review_date: 2013, country_of_bean_origin: "Panama", specific_bean_origin_or_bar_name: "Panama", cocoa_percent: 70, ingredients: "4- B;S;C;L", most_memorable_characteristics: "brief fruit note; earthy; nutty", rating: 2.75}
 ];
 
-module.exports = (app, db) => {
+function api_AMG(app, db){
     app.get(API_BASE + "/loadInitialData", (req, res) => {
 
         const limit = parseInt(req.query.limit) || 10; // Comprueba si en la petición está el parámetro que indica cuántos elementos mostrar por página
@@ -196,3 +196,5 @@ module.exports = (app, db) => {
         });
     });
 };
+
+export {api_AMG};
