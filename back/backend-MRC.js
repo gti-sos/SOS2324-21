@@ -134,7 +134,7 @@ function loadBackendMRC(app, db){
             if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
-                reportsData = reports.map((r) => {
+                const reportsData = reports.map((r) => {
                     delete r._id;
                     return r;
                 });
@@ -200,7 +200,7 @@ function loadBackendMRC(app, db){
             if (err) {
                 res.sendStatus(500, "Internal Server Error");
             } else {
-                reportsData = reports.map((r) => {
+                const reportsData = reports.map((r) => {
                     delete r._id;
                     return r;
                 });
