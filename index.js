@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dataStore from'nedb';
 import {handler} from "./front/build/handler.js"; //asi conectamos con el frontend
+import cors from "cors";
 
 import {loadBackendMRC} from "./back/backend-MRC.js";
 import {api_JMM} from "./back/index-JMM.js";
@@ -16,7 +17,7 @@ let app = express();
 const PORT = (process.env.PORT || 10000);
 
 //app.use(express.static("./root"));
-
+app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/api/v1/happiness-reports/docs', (req, res) => {
