@@ -330,7 +330,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 100000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371\r\n    }",
+							"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 2000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 9999999,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -370,13 +370,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER_SOS}}/NORUEGA/100000",
+							"raw": "{{SERVER_SOS}}/NORUEGA/2000",
 							"host": [
 								"{{SERVER_SOS}}"
 							],
 							"path": [
 								"NORUEGA",
-								"100000"
+								"2000"
 							]
 						}
 					},
@@ -700,13 +700,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
+					"raw": "{{SERVER_SOS}}/NORUEGA/20000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
 						"NORUEGA",
-						"2000"
+						"20000"
 					]
 				}
 			},
@@ -765,7 +765,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 100000000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative\": 371\r\n    }",
+					"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 2000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative\": 371\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -806,7 +806,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 100000000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371,\r\n        \"asd\": 23\r\n    }",
+					"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 2000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371,\r\n        \"asd\": 23\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -847,7 +847,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country_name\": \"NORUEGA\",\r\n        \"year\": 100000000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371\r\n    }",
+					"raw": "{\r\n        \"country_name\": \"AFRICA\",\r\n        \"year\": 2000,\r\n        \"gdp\": 7.697,\r\n        \"social_support\": 491,\r\n        \"healthy_life_expectancy\": 52.800,\r\n        \"generosity\": -121,\r\n        \"possitive_affect\": 496,\r\n        \"negative_affect\": 371\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -887,13 +887,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER_SOS}}/NORUEGA/2000",
+					"raw": "{{SERVER_SOS}}/NORUEGA/20000",
 					"host": [
 						"{{SERVER_SOS}}"
 					],
 					"path": [
 						"NORUEGA",
-						"2000"
+						"20000"
 					]
 				}
 			},
