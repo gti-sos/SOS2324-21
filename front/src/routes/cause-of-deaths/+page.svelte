@@ -20,6 +20,7 @@
 		nutricional_deficiencie: 287,
 		malaria: 23
 	};
+
 	let errorMsg = '';
 
 	onMount(() => {
@@ -39,17 +40,47 @@
 		}
 	}
 
+	/*
+	async function reloadAllData() {
+    try {
+        const response = await fetch(API, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(initialReports)
+        });
+
+        if (response.status === 201) {
+            console.log("Data reloaded successfully");
+            // Realizar alguna acción adicional si es necesario
+        } else {
+            console.error("Error reloading data:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error reloading data:", error.message);
+    }
+}*/
+
+	/*<div><Button color="success" outline on:click={reloadAllData}>Reload</Button>
+	</div>*/
+
 	async function deleteAllReports() {
 		try {
 			let response = await fetch(API, { method: 'DELETE' });
 			if (response.status == 200) {
 				reports = [];
-				await listAllReports();
 			} else {
 				errorMsg = 'Error deleting all reports, code: ' + response.status;
 			}
 		} catch (e) {
 			errorMsg = e;
+		}
+	}
+
+	function confirmDelete() {
+		if (confirm('Are you sure you want to delete all reports?')) {
+			deleteAllReports();
 		}
 	}
 
@@ -91,28 +122,38 @@
 
 <Row>
 	<Col sm="6">
-        <div class="api-section d-flex flex-column justify-content-end">
-            <h2>Data from API</h2>
-            <ul>
-                {#each reports as r}
-                    <li class="py-1">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <a href="/cause-of-deaths/{r.country_name}">{r.country_name}</a> - {r.code} 
-                            </div>
-                            <div class="edits">
-                                <Button color="danger" outline size="sm" on:click={() => deleteReport(r.country_name)}>Delete</Button>
-                                &nbsp;
-                                <a href="/cause-of-deaths/{r.country_name}"><Button color="success" outline size="sm">Edit</Button></a>
-                            </div>
-                        </div>
-                    </li>
-                {/each}
-            </ul>
-            <Button color="danger" outline on:click={deleteAllReports}>Delete All Reports</Button>
-        </div>
-    </Col>
-    
+		<div class="api-section d-flex flex-column justify-content-end">
+			<h2>Data from API</h2>
+			<ul>
+				{#each reports as r}
+					<li class="py-1">
+						<div class="d-flex justify-content-between align-items-center">
+							<div>
+								<a href="/cause-of-deaths/{r.country_name}">{r.country_name}</a> - {r.code}
+							</div>
+							<div class="edits">
+								<Button
+									color="danger"
+									outline
+									size="sm"
+									on:click={() => deleteReport(r.country_name)}>Delete</Button
+								>
+								&nbsp;
+								<a href="/cause-of-deaths/{r.country_name}"
+									><Button color="success" outline size="sm">Edit</Button></a
+								>
+							</div>
+						</div>
+					</li>
+				{/each}
+			</ul>
+			<div class="d-flex justify-content-between">
+				<div>
+					<Button color="danger" outline on:click={confirmDelete}>Delete All Reports</Button>
+				</div>
+			</div>
+		</div>
+	</Col>
 
 	<Col sm="6">
 		<div class="create-section">
@@ -164,10 +205,10 @@
 </Row>
 
 <style>
-    h2 {
-        font-size: 1.6em;
-        margin-bottom: 0.6em;
-    }
+	h2 {
+		font-size: 1.6em;
+		margin-bottom: 0.6em;
+	}
 	.create-section {
 		margin-top: 2em;
 	}
@@ -188,8 +229,8 @@
 	.centered-button {
 		margin-top: 1em;
 	}
-    .edits {
-        display: flex;
-        margin-left: 2em;
-    }
+	.edits {
+		display: flex;
+		margin-left: 2em;
+	}
 </style>
