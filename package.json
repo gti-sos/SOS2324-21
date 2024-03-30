@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "npm run testMRCgcloud && npm run testJMMgcloud",
+    "test": "npm run testMRCgcloud && npm run testJMMlocal",
     "testMRClocal": "npx newman run ./tests/cause-of-deaths/api.json -e ./tests/environments/localMRC.json",
     "testMRCgcloud": "npx newman run ./tests/cause-of-deaths/api.json -e ./tests/environments/gcloudMRC.json",
     "testJMMlocal": "npx newman run ./tests/happiness-reports_tests/happiness-reports-test.json -e ./tests/environments/localJMM.json",
