@@ -7,6 +7,7 @@
         <NavLink href="/">Home</NavLink>
         <NavLink href="/about">About</NavLink>
         <NavLink href="/cause-of-deaths">Cause of Deaths</NavLink>
+        <NavLink href="/happiness-reports">Happiness reports</NavLink>
     </Nav>
 </Navbar>
 

@@ -5,7 +5,7 @@ import {handler} from "./front/build/handler.js"; //asi conectamos con el fronte
 import cors from "cors";
 
 import {loadBackendMRC} from "./back/backend-MRC.js";
-import {api_JMM} from "./back/index-JMM.js";
+import {loadBackendJMM} from "./back/backend-JMM.js";
 import {api_AMG} from "./back/index-AMG.js";
 
 let dbHappiness = new dataStore();
@@ -28,7 +28,7 @@ app.get('/api/v1/cause-of-deaths/docs', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32977574/2sA2xb7GDm');
 });
 
-api_JMM(app, dbHappiness);
+loadBackendJMM(app, dbHappiness);
 loadBackendMRC(app, dbCauseDeaths);
 api_AMG(app, dbChocolates);
 
