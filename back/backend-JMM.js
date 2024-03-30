@@ -243,7 +243,6 @@ function loadBackendJMM(app, db){
         } else if(queryParams.length !== 8) {
             return res.status(400).send("Incorrect fields size");
         } else if (year===body.year && req.params.country_name === body.country_name){
-            console.log("country_name "+ req.params.country_name+ " year " +year)
             db.update({"country_name": req.params.country_name, "year": year}, {$set: body}, (err,numUpdated) => {
                 if (err) {
                     res.sendStatus(500, "Internal Error");
