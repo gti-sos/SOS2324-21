@@ -4,10 +4,10 @@
 
 <Navbar color="light" light expand="md">
     <Nav navbar>
-        <NavLink href="/">Home</NavLink>
-        <NavLink href="/about">About</NavLink>
+        <NavLink href="/">Inicio</NavLink>
         <NavLink href="/cause-of-deaths">Cause of Deaths</NavLink>
         <NavLink href="/happiness-reports">Happiness reports</NavLink>
+        <NavLink href="/about">Sobre nosotros...</NavLink>
     </Nav>
 </Navbar>
 

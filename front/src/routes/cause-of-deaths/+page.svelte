@@ -22,6 +22,7 @@
 	};
 
 	let errorMsg = '';
+	let successMessage = '';
 
 	onMount(() => {
 		getAPI();
@@ -40,38 +41,13 @@
 		}
 	}
 
-	/*
-	async function reloadAllData() {
-    try {
-        const response = await fetch(API, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(initialReports)
-        });
-
-        if (response.status === 201) {
-            console.log("Data reloaded successfully");
-            // Realizar alguna acción adicional si es necesario
-        } else {
-            console.error("Error reloading data:", response.statusText);
-        }
-    } catch (error) {
-        console.error("Error reloading data:", error.message);
-    }
-}*/
-
-	/*<div><Button color="success" outline on:click={reloadAllData}>Reload</Button>
-	</div>*/
-
 	async function deleteAllReports() {
 		try {
 			let response = await fetch(API, { method: 'DELETE' });
 			if (response.status == 200) {
 				reports = [];
 			} else {
-				errorMsg = 'Error deleting all reports, code: ' + response.status;
+				errorMsg = 'Error borrando todos los reportes, código: ' + response.status;
 			}
 		} catch (e) {
 			errorMsg = e;
@@ -79,13 +55,13 @@
 	}
 
 	function confirmDelete() {
-		if (confirm('Are you sure you want to delete all reports?')) {
+		if (confirm('¿Estás seguro de que quieres eliminar todos los reportes?')) {
 			deleteAllReports();
 		}
 	}
 
 	async function deleteReport(n) {
-		console.log(`Deleting report with name ${n}`);
+		console.log(`Borrando el reporte con el nombre ${n}`);
 
 		try {
 			let response = await fetch(API + '/' + n, {
@@ -93,7 +69,8 @@
 			});
 			if (response.status == 200) {
 				getAPI();
-			} else errorMsg = 'Error, code: ' + response.status;
+				successMessage = `Informe con el nombre ${n} borrado exitosamente`; // Mostrar mensaje de éxito
+			} else errorMsg = 'Error eliminando el reporte (código: ' + response.status + ")";
 		} catch (e) {
 			errorMsg = e;
 		}
@@ -112,10 +89,11 @@
 			console.log(`Creation responde status ${status}`);
 			if (status == 201) {
 				getAPI();
-			} else errorMsg = 'Error creating new death, code: ' + status;
+				successMessage = 'Informe creado exitosamente';
+			} else errorMsg = 'Error creando nueva entrada, código: ' + status;
 		} catch (e) {
 			console.log(e);
-			errorMsg = 'Error creating new death, code: ' + status;
+			errorMsg = 'Error crando nueva entrada, código: ' + status;
 		}
 	}
 </script>
@@ -123,7 +101,7 @@
 <Row>
 	<Col sm="6">
 		<div class="api-section d-flex flex-column justify-content-end">
-			<h2>Data from API</h2>
+			<h2>Datos de la API</h2>
 			<ul>
 				{#each reports as r}
 					<li class="py-1">
@@ -132,15 +110,15 @@
 								<a href="/cause-of-deaths/{r.country_name}">{r.country_name}</a> - {r.code}
 							</div>
 							<div class="edits">
+								<a href="/cause-of-deaths/{r.country_name}/{r.year}"
+									><Button color="success" outline size="sm">Editar</Button></a
+								>
+								&nbsp;
 								<Button
 									color="danger"
 									outline
 									size="sm"
-									on:click={() => deleteReport(r.country_name)}>Delete</Button
-								>
-								&nbsp;
-								<a href="/cause-of-deaths/{r.country_name}"
-									><Button color="success" outline size="sm">Edit</Button></a
+									on:click={() => deleteReport(r.country_name)}>Eliminar</Button
 								>
 							</div>
 						</div>
@@ -149,7 +127,9 @@
 			</ul>
 			<div class="d-flex justify-content-between">
 				<div>
-					<Button color="danger" outline on:click={confirmDelete}>Delete All Reports</Button>
+					<Button color="danger" outline on:click={confirmDelete}
+						>Eliminar todos los reportes</Button
+					>
 				</div>
 			</div>
 		</div>
@@ -157,19 +137,19 @@
 
 	<Col sm="6">
 		<div class="create-section">
-			<h2>Create New Report</h2>
+			<h2>Crear un Reporte Nuevo</h2>
 			<table>
 				<tbody>
 					<tr>
-						<td class="py-1">Name Country:</td>
+						<td class="py-1">Nombre país:</td>
 						<td class="py-1"><input bind:value={newDeath.country_name} /></td>
 					</tr>
 					<tr>
-						<td class="py-1">Code:</td>
+						<td class="py-1">Código:</td>
 						<td class="py-1"><input bind:value={newDeath.code} /></td>
 					</tr>
 					<tr>
-						<td class="py-1">Year:</td>
+						<td class="py-1">Año:</td>
 						<td class="py-1"><input bind:value={newDeath.year} /></td>
 					</tr>
 					<tr>
@@ -185,7 +165,7 @@
 						<td class="py-1"><input bind:value={newDeath.parkinson} /></td>
 					</tr>
 					<tr>
-						<td class="py-1">Nutricional Deficiencie:</td>
+						<td class="py-1">Deficiencia Nutricional:</td>
 						<td class="py-1"><input bind:value={newDeath.nutricional_deficiencie} /></td>
 					</tr>
 					<tr>
@@ -195,8 +175,12 @@
 				</tbody>
 			</table>
 			<div class="centered-button">
-				<Button color="primary" outline on:click={createReport}>Create</Button>
+				<Button color="primary" outline on:click={createReport}>Crear</Button>
 			</div>
+			<p></p>
+			{#if successMessage}
+				<p>{successMessage}</p>
+			{/if}
 			{#if errorMsg}
 				<p>{errorMsg}</p>
 			{/if}

@@ -5,6 +5,5 @@
     if(dev)
         mode="development";
 </script>
-
-
-This is the contact manager app in {mode} mode.
+<p></p>
+<p>This is the contact manager app in {mode} mode.</p>
