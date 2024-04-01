@@ -16,6 +16,9 @@ let app = express();
 
 const PORT = (process.env.PORT || 10000);
 
+//NO MOVER DE AQUI
+app.use(cors());
+
 //app.use(express.static("./root"));
 app.use(bodyParser.json());
 
@@ -31,8 +34,9 @@ loadBackendJMM(app, dbHappiness);
 loadBackendMRC(app, dbCauseDeaths);
 api_AMG(app, dbChocolates);
 
+//NO MOVER DE AQUI
 app.use(handler);
-app.use(cors());
+
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
