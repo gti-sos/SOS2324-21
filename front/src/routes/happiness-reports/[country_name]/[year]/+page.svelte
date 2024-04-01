@@ -5,5 +5,5 @@
     let year = $page.params.year;
 </script>
 
-Details of {country_name} with year {year}
+Detalles de {country_name} con año {year}
 

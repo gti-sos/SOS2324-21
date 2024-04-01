@@ -19,6 +19,7 @@
         possitive_affect: 496,
         negative_affect: 371
     };
+    let successMessage = '';
 
     if(dev)
         API = "http://localhost:10000"+API;
@@ -48,9 +49,14 @@
                                         method: "DELETE"
                                     });
             
-            if(response.status == 200)
+            if(response.status == 200){
                 getReports();
-            else
+                successMessage = `Informe borrado exitosamente`; // Mostrar mensaje de éxito
+            } else if(response.status === 409) {
+                alert("Esta persona esta duplicada")
+            } else if (response.status === 400) {
+                alert("Persona no encontrada")
+            } else
                 errorMsg = "code:"+response.status;
             
         }catch(e){
@@ -69,7 +75,17 @@
 			let response = await fetch(API, { method: 'DELETE' });
 			if (response.status == 200) {
 				reports = [];
-			} else {
+                successMessage = `Informes borrados exitosamente`;
+
+			} else if (response.status==404) {
+                successMessage = `Informe no encontrado`;
+            }else if (response.status==409) {
+                successMessage = `Informe duplicado`;
+            } else if (response.status==400) {
+                successMessage = `Formato incorrecto`;
+            } 
+            
+            else {
 				errorMsg = 'Error deleting all reports, code: ' + response.status;
 			}
 		} catch (e) {
@@ -90,8 +106,17 @@
 
             let status = response.status;
             console.log(`Creation response status ${status}`);
-            if(status==201)
+            if(status==201){
                 getReports();
+                successMessage = `Informe creado exitosamente`;
+            } else if (status==404) {
+                successMessage = `Informe no encontrado`;
+            }else if (status==409) {
+                successMessage = `Informe duplicado`;
+            } else if (status==400) {
+                successMessage = `Formato incorrecto`;
+            }
+            
             else
                 errorMsg = "code:"+status
         } catch(e) {
@@ -216,6 +241,9 @@ ERROR: {errorMsg}
 			<div class="centered-button">
 				<Button color="primary" outline on:click={createReport}>Crear</Button>
 			</div>
+            {#if successMessage}
+				<p>{successMessage}</p>
+			{/if}
 			{#if errorMsg}
 				<p>{errorMsg}</p>
 			{/if}
