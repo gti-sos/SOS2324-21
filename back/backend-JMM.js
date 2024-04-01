@@ -215,7 +215,7 @@ function loadBackendJMM(app, db){
                 });
                 const countryData = reportsData.filter(r => r.country_name === country);
                 if (countryData.length > 0) {
-                    res.send(countryData);
+                    res.send(countryData[0]);
                 } else {
                     res.sendStatus(404, "Not found");
                 }

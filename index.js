@@ -18,6 +18,7 @@ const PORT = (process.env.PORT || 10000);
 
 //app.use(express.static("./root"));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/api/v1/happiness-reports/docs', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swf');
@@ -32,7 +33,6 @@ loadBackendMRC(app, dbCauseDeaths);
 api_AMG(app, dbChocolates);
 
 app.use(handler);
-app.use(cors());
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
