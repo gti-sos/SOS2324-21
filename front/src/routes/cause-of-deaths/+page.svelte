@@ -137,7 +137,7 @@
 
 	<Col sm="6">
 		<div class="create-section">
-			<h2>Crear un Reporte Nuevo</h2>
+			<h2>Crear un Reporte</h2>
 			<table>
 				<tbody>
 					<tr>

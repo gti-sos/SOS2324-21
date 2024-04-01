@@ -28,10 +28,12 @@
 
 	async function loadReport() {
 		try {
-			let response = await fetch(`${API}/${country_name}/${year}`);
+			let response = await fetch(`${API}/${country_name}/${year}`,{
+				method: 'GET'
+			});
 			if (response.status == 200) {
 				let data = await response.json();
-				reportToEdit = { ...reportToEdit, ...data };
+				reportToEdit = data;
 			} else {
 				console.error('Error cargando el informe:', response.statusText);
 			}
@@ -39,6 +41,7 @@
 			console.error('Error cargando el informe:', error);
 		}
 	}
+	loadReport();
 
 	async function editReport() {
 		try {
@@ -52,7 +55,7 @@
 			if (response.status == 200) {
 				console.log('Informe editado exitosamente');
 				errorMsg = 'Informe editado exitosamente';
-				await loadReport();
+				//window.location.reload();
 			} else {
 				errorMsg = 'Error editando el informe: ' + response.statusText;
 			}
@@ -60,21 +63,39 @@
 			errorMsg = error;
 		}
 	}
-
+/*
 	onMount(async () => {
 		await loadReport();
-	});
+	});*/
+
+	function parseMeningitis(value) {
+		return parseInt(value);
+	}
+
+	function parseAlzheimer(value) {
+		return parseInt(value);
+	}
+
+	function parseParkinson(value) {
+		return parseInt(value);
+	}
+	function parseNutricionalDeficience(value) {
+		return parseInt(value);
+	}
+	function parseMalaria(value) {
+		return parseInt(value);
+	}
 </script>
 
 <div class="container mx-auto mt-5" style="width: 60%;">
     <h2 class="title">Datos de {country_name} - {year}</h2>
     <p></p>
     <p>Código: {reportToEdit.code}</p>
-    <p>Meningitis: <Input type="number" bind:value={reportToEdit.meningitis} /></p>
-    <p>Alzheimer: <Input type="number" bind:value={reportToEdit.alzheimer} /></p>
-    <p>Parkinson: <Input type="number" bind:value={reportToEdit.parkinson} /></p>
-    <p>Deficiencia Nutricional: <Input type="number" bind:value={reportToEdit.nutricional_deficiencie} /></p>
-    <p>Malaria: <Input type="number" bind:value={reportToEdit.malaria} /></p>
+	<p>Meningitis: <Input type="number" value={reportToEdit.meningitis} on:input={event => reportToEdit.meningitis = parseMeningitis(event.target.value)} /></p>
+	<p>Alzheimer: <Input type="number" value={reportToEdit.alzheimer} on:input={event => reportToEdit.alzheimer = parseAlzheimer(event.target.value)} /></p>
+	<p>Parkinson: <Input type="number" value={reportToEdit.parkinson} on:input={event => reportToEdit.parkinson = parseParkinson(event.target.value)} /></p>
+	<p>Deficiencia Nutricional: <Input type="number" bind:value={reportToEdit.nutricional_deficiencie} /></p>
+	<p>Malaria: <Input type="number" value={reportToEdit.malaria} on:input={event => reportToEdit.malaria = parseMalaria(event.target.value)} /></p>
 
     <div class="button-center">
         <Button color="primary" outline on:click={editReport} class="save-button">
@@ -90,6 +111,7 @@
         <p>{errorMsg}</p>
     {/if}
 </div>
+
 
 
 <style>
