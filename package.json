@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node index",
     "test": "npm run testMRClocal && npm run testJMMlocal",
-    "testMRClocal": "npx newman run ./tests/cause-of-deaths/apiv2.json -e ./tests/environments/localMRC.json",
-    "testMRCgcloud": "npx newman run ./tests/cause-of-deaths/api.json -e ./tests/environments/gcloudMRC.json",
+    "testMRClocal": "npx newman run ./tests/cause-of-deaths/testsapiv2.json -e ./tests/environments/localMRC.json",
+    "testMRCgcloud": "npx newman run ./tests/cause-of-deaths/testsapiv2.json -e ./tests/environments/gcloudMRC.json",
     "testJMMlocal": "npx newman run ./tests/happiness-reports_tests/happiness-reports-test.json -e ./tests/environments/localJMM.json",
     "testJMMgcloud": "npx newman run ./tests/happiness-reports_tests/happiness-reports-test.json -e ./tests/environments/gcloudJMM.json"
   },

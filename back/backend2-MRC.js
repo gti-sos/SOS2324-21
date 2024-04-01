@@ -15,7 +15,7 @@ var initialReports = [
 ];
 
 function loadBackendMRC(app, db){
-    db.insert(initialReports);
+    //db.insert(initialReports);
 
     app.get(API_BASE + "/loadInitialData", (req, res) => {
 
