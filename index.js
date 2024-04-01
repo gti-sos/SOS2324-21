@@ -16,11 +16,9 @@ let app = express();
 
 const PORT = (process.env.PORT || 10000);
 
-//NO MOVER DE AQUI
-app.use(cors());
-
 //app.use(express.static("./root"));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/api/v1/happiness-reports/docs', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swf');
@@ -34,9 +32,7 @@ loadBackendJMM(app, dbHappiness);
 loadBackendMRC(app, dbCauseDeaths);
 api_AMG(app, dbChocolates);
 
-//NO MOVER DE AQUI
 app.use(handler);
-
 
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
