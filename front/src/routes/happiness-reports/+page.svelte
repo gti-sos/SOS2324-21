@@ -19,6 +19,7 @@
         possitive_affect: 496,
         negative_affect: 371
     };
+    let successMessage = '';
 
     if(dev)
         API = "http://localhost:10000"+API;
@@ -240,6 +241,9 @@ ERROR: {errorMsg}
 			<div class="centered-button">
 				<Button color="primary" outline on:click={createReport}>Crear</Button>
 			</div>
+            {#if successMessage}
+				<p>{successMessage}</p>
+			{/if}
 			{#if errorMsg}
 				<p>{errorMsg}</p>
 			{/if}
