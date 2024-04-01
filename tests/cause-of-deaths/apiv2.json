@@ -28,13 +28,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/loadInitialData/",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/loadInitialData/",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"loadInitialData",
 						""
@@ -67,13 +67,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						""
 					]
@@ -92,7 +92,8 @@
 							"    pm.response.to.have.status(201);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -109,13 +110,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						""
 					]
@@ -134,7 +135,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -142,13 +144,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Norway",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Norway",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"Norway"
 					]
@@ -186,13 +188,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Afghanistan/1992",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Afghanistan/1992",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"Afghanistan",
 						"1992"
@@ -212,7 +214,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -220,13 +223,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Norway",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Norway",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"Norway"
 					]
@@ -245,7 +248,8 @@
 							"    pm.response.to.have.status(409);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -262,13 +266,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						""
 					]
@@ -287,7 +291,8 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -295,13 +300,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/noruega",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/noruega",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"noruega"
 					]
@@ -320,7 +325,8 @@
 							"    pm.response.to.have.status(405);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -328,13 +334,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						""
 					]
@@ -353,7 +359,8 @@
 							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -370,13 +377,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Germany",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Germany",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"Germany"
 					]
@@ -413,13 +420,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Germany",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Germany",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"Germany"
 					]
@@ -447,13 +454,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Afghanistan/1992",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Afghanistan/1992",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"Afghanistan",
 						"1992"
@@ -473,7 +480,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -481,13 +489,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						""
 					]
@@ -531,13 +539,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Afghanistan/1992",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Afghanistan/1992",
 					"host": [
 						"{{SERVER}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"cause-of-deaths",
 						"Afghanistan",
 						"1992"
