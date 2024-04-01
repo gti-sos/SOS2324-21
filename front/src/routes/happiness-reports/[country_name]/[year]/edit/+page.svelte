@@ -9,8 +9,10 @@
     let API = "/api/v1/happiness-reports";
     let errorMsg="";
     let report = {};
+
     if(dev)
         API = "http://localhost:10000"+API;
+
     async function getEditReport(){
         try{
             let response = await fetch(API+"/"+country_name +"/"+year,{
@@ -19,6 +21,7 @@
 
             let data = await response.json();
             report = data;
+            
         } catch(e) {
             errorMsg = e;
         }
@@ -35,7 +38,16 @@
             });
 
             let status = response.status;
+            if (response.status==404) {
+                successMessage = `Informe no encontrado`;
+            }else if (response.status==200) {
+                successMessage = `Informe editado`;
+            } else if (response.status==400) {
+                successMessage = `Formato incorrecto`;
+            } 
             console.log(`Creation response status ${status}`);
+
+
             navigate("/happiness-reports/");
             window.location.reload();
         } catch(e) {
