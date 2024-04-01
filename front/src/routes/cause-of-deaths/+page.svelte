@@ -3,10 +3,10 @@
 	import { dev } from '$app/environment';
 	import { Button, Col, Row } from '@sveltestrap/sveltestrap';
 
-	let API = '/api/v1/cause-of-deaths';
+	let API = '/api/v2/cause-of-deaths';
 
 	if (dev) {
-		API = 'http://localhost:10000/api/v1/cause-of-deaths';
+		API = 'http://localhost:10000/api/v2/cause-of-deaths';
 	}
 
 	let reports = [];
@@ -57,6 +57,7 @@
 	function confirmDelete() {
 		if (confirm('¿Estás seguro de que quieres eliminar todos los reportes?')) {
 			deleteAllReports();
+			successMessage = `Todos los reportes se han borrado exitosamente`; // Mostrar mensaje de éxito
 		}
 	}
 

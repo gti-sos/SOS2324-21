@@ -4,7 +4,7 @@ import dataStore from'nedb';
 import {handler} from "./front/build/handler.js"; //asi conectamos con el frontend
 import cors from "cors";
 
-import {loadBackendMRC} from "./back/backend-MRC.js";
+import {loadBackendMRC} from "./back/backend2-MRC.js";
 import {loadBackendJMM} from "./back/backend-JMM.js";
 import {api_AMG} from "./back/index-AMG.js";
 

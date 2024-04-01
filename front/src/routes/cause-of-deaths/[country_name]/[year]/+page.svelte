@@ -8,21 +8,12 @@
 	let country_name = $page.params.country_name;
 	let year = $page.params.year;
 
-	let API = '/api/v1/cause-of-deaths';
+	let API = '/api/v2/cause-of-deaths';
 	if (dev) {
-		API = 'http://localhost:10000/api/v1/cause-of-deaths';
+		API = 'http://localhost:10000/api/v2/cause-of-deaths';
 	}
 
-	let reportToEdit = {
-		country_name: country_name,
-		year: year,
-		code: '',
-		meningitis: 0,
-		alzheimer: 0,
-		parkinson: 0,
-		nutricional_deficiencie: 0,
-		malaria: 0
-	};
+	let reportToEdit={};
 
 	let errorMsg = '';
 
@@ -34,6 +25,7 @@
 			if (response.status == 200) {
 				let data = await response.json();
 				reportToEdit = data;
+				console.log(reportToEdit)
 			} else {
 				console.error('Error cargando el informe:', response.statusText);
 			}
