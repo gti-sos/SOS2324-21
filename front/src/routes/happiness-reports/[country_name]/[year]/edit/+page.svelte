@@ -8,6 +8,7 @@
     let year = $page.params.year;
     let API = "/api/v1/happiness-reports";
     let errorMsg="";
+    let successMessage="";
     let report = {};
 
     if(dev)
@@ -46,7 +47,7 @@
                 successMessage = `Formato incorrecto`;
             } 
             console.log(`Creation response status ${status}`);
-
+            
 
             navigate("/happiness-reports/");
             window.location.reload();
@@ -80,7 +81,9 @@
     }
 
 </script>
-
+{#if successMessage}
+	<p>{successMessage}</p>
+{/if}
 {#if errorMsg != ""}
 ERROR: {errorMsg}
 {/if}
