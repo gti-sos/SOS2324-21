@@ -6,6 +6,10 @@
     
 </script>
 
+<svelte:head>
+    <title>SOS2324-21</title>
+</svelte:head>
+
 <Header />
 <slot></slot>
 <hr/>

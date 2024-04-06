@@ -170,7 +170,7 @@ ERROR: {errorMsg}
 			<h2>Datos de la API</h2>
 			<ul>
 				{#each reports as r}
-					<li class="py-1">
+					<li class="py-1 reportItem">
 						<div class="d-flex justify-content-between align-items-center">
 							<div>
 								<a href="/happiness-reports/{r.country_name}/{r.year}">{r.country_name} {r.year}</a>

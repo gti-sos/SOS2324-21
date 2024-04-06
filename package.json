@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "npm run testMRClocal && npm run testJMMlocal",
+    "test": "npm run testMRClocal && npm run testJMMlocal && npm run test-e2e",
     "testMRClocal": "npx newman run ./tests/cause-of-deaths/testsapiv2.json -e ./tests/environments/localMRC.json",
     "testMRCgcloud": "npx newman run ./tests/cause-of-deaths/testsapiv2.json -e ./tests/environments/gcloudMRC.json",
     "testJMMlocal": "npx newman run ./tests/happiness-reports_tests/happiness-reports-test.json -e ./tests/environments/localJMM.json",
-    "testJMMgcloud": "npx newman run ./tests/happiness-reports_tests/happiness-reports-test.json -e ./tests/environments/gcloudJMM.json"
+    "testJMMgcloud": "npx newman run ./tests/happiness-reports_tests/happiness-reports-test.json -e ./tests/environments/gcloudJMM.json",
+    "test-e2e": "npx playwright test"
   },
   "author": "",
   "license": "GPL-3.0",
@@ -24,5 +25,9 @@
     "newman": "^6.1.2",
     "svelte": "^4.2.12"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@playwright/test": "^1.43.0",
+    "@types/node": "^20.12.5"
+  }
 }
