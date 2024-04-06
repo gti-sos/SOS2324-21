@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
+    "pretest": "npm start &",
     "test": "npm run testMRClocal && npm run testJMMlocal && npm run test-e2e",
     "testMRClocal": "npx newman run ./tests/cause-of-deaths/testsapiv2.json -e ./tests/environments/localMRC.json",
     "testMRCgcloud": "npx newman run ./tests/cause-of-deaths/testsapiv2.json -e ./tests/environments/gcloudMRC.json",

@@ -9,6 +9,13 @@
 		API = 'http://localhost:10000/api/v2/cause-of-deaths';
 	}
 
+	onMount(() => {
+		getReports();
+	});
+
+	let errorMsg = '';
+	let successMessage = '';
+
 	let reports = [];
 	let newDeath = {
 		country_name: 'Germany',
@@ -20,25 +27,68 @@
 		nutricional_deficiencie: 287,
 		malaria: 23
 	};
+	
+	let message = '';
+	let color_alert;
+	let result = '';
+	let resultStatus = '';
+	
+	// Paginacion
+    // Variables de paginación
+    let limit = 10; // Número de elementos por página
+    let offset = 0; // Desplazamiento inicial
 
-	let errorMsg = '';
-	let successMessage = '';
+    async function getReports() {
+        try {
+            let response = await fetch(`${API}?limit=${limit}&offset=${offset}`, {
+                method: "GET"
+            });
 
-	onMount(() => {
-		getAPI();
-	});
+            let data = await response.json();
+            reports = data;
+        } catch (e) {
+            errorMsg = e;
+        }
+    }
 
-	async function getAPI() {
-		try {
-			let response = await fetch(API, {
-				method: 'GET'
-			});
-			let data = await response.json();
-			reports = data;
-			console.log(data);
-		} catch (e) {
-			errorMsg = e;
+	// Función para cambiar de página hacia adelante
+    function nextPage() {
+        offset += limit;
+        getReports();
+    }
+
+    // Función para cambiar de página hacia atrás
+    function previousPage() {
+        if (offset >= limit) {
+            offset -= limit;
+            getReports();
+        }
+    }
+
+	async function loadInitialData() {
+		resultStatus = result = '';
+		const res = await fetch(API + '/loadInitialData', {
+			method: 'GET'
+		});
+		const status = await res.status;
+		resultStatus = status;
+		if (status == 500) {
+			message = 'Ha habido un error en la petición';
+			color_alert = 'danger';
 		}
+		if (status == 201) {
+			message = 'Datos iniciales cargados correctamente';
+			color_alert = 'success';
+			getReports();
+		}
+		if (status == 400) {
+			message = 'Ya hay datos cargados';
+			color_alert = 'danger';
+		}
+		setTimeout(() => {
+			message = '';
+			color_alert = '';
+		}, 3200);
 	}
 
 	async function deleteAllReports() {
@@ -49,6 +99,10 @@
 			} else {
 				errorMsg = 'Error borrando todos los reportes, código: ' + response.status;
 			}
+			setTimeout(() => {
+				errorMsg = '';
+				color_alert = '';
+			}, 3200);
 		} catch (e) {
 			errorMsg = e;
 		}
@@ -71,7 +125,12 @@
 			if (response.status == 200) {
 				getAPI();
 				successMessage = `Informe con el nombre ${n} borrado exitosamente`; // Mostrar mensaje de éxito
-			} else errorMsg = 'Error eliminando el reporte (código: ' + response.status + ")";
+			} else errorMsg = 'Error eliminando el reporte (código: ' + response.status + ')';
+			setTimeout(() => {
+				successMessage = '';
+				errorMsg = '';
+				color_alert = '';
+			}, 3200);
 		} catch (e) {
 			errorMsg = e;
 		}
@@ -91,18 +150,44 @@
 			if (status == 201) {
 				getAPI();
 				successMessage = 'Informe creado exitosamente';
-			} else errorMsg = 'Error creando nueva entrada, código: ' + status;
+			}
+			if (status == 400) {
+				errorMsg = 'Hay que insertar datos o faltan campos';
+				color_alert = 'danger';
+			}
+			if (status == 409) {
+				errorMsg = 'El recurso ya existe';
+				color_alert = 'danger';
+			}
+			setTimeout(() => {
+				successMessage = '';
+				errorMsg = '';
+				color_alert = '';
+			}, 3200);
 		} catch (e) {
 			console.log(e);
 			errorMsg = 'Error crando nueva entrada, código: ' + status;
 		}
 	}
+
+	
 </script>
 
 <Row>
 	<Col sm="6">
 		<div class="api-section d-flex flex-column justify-content-end">
 			<h2>Datos de la API</h2>
+			<div class="d-flex justify-content-between">
+				<div>
+					<Button color="primary" outline on:click={loadInitialData}>Cargar datos iniciales</Button>
+				</div>
+				<div style="margin-left: 10px;">
+					<Button color="danger" outline on:click={confirmDelete}
+						>Eliminar todos los reportes</Button
+					>
+				</div>
+			</div>
+			<p></p>
 			<ul>
 				{#each reports as r}
 					<li class="py-1">
@@ -126,13 +211,10 @@
 					</li>
 				{/each}
 			</ul>
-			<div class="d-flex justify-content-between">
-				<div>
-					<Button color="danger" outline on:click={confirmDelete}
-						>Eliminar todos los reportes</Button
-					>
-				</div>
-			</div>
+			<div class="pagination" style="margin-bottom: 20px;">
+                <Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}>Anterior</Button>
+                <Button on:click={nextPage} disabled={reports.length < limit}>Siguiente</Button>
+            </div>
 		</div>
 	</Col>
 
