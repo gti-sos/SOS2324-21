@@ -28,18 +28,18 @@
         getReports();
     })
 
-    async function getReports(){
-        try{
-            let response = await fetch(API,{
-                method: "GET"
-            });
+    // async function getReports(){
+    //     try{
+    //         let response = await fetch(API,{
+    //             method: "GET"
+    //         });
 
-            let data = await response.json();
-            reports = data;
-        } catch(e) {
-            errorMsg = e;
-        }
-    }
+    //         let data = await response.json();
+    //         reports = data;
+    //     } catch(e) {
+    //         errorMsg = e;
+    //     }
+    // }
 
     async function deleteReport(n, y){
         console.log(`Deleting Report with name ${n} and year ${y}`);
@@ -124,6 +124,45 @@
         }
     }
 
+    // Paginacion
+
+    // Variables de paginación
+    let limit = 10; // Número de elementos por página
+    let offset = 0; // Desplazamiento inicial
+
+    // Llama a la función getReports con los parámetros de paginación
+    async function getReports() {
+        try {
+            let response = await fetch(`${API}?limit=${limit}&offset=${offset}`, {
+                method: "GET"
+            });
+
+            let data = await response.json();
+            reports = data;
+        } catch (e) {
+            errorMsg = e;
+        }
+    }
+    // Función para cambiar de página hacia adelante
+    function nextPage() {
+        offset += limit;
+        getReports();
+    }
+
+    // Función para cambiar de página hacia atrás
+    function previousPage() {
+        if (offset >= limit) {
+            offset -= limit;
+            getReports();
+        }
+    }
+
+    // Función para ir a una página específica
+    function goToPage(pageNumber) {
+        offset = (pageNumber - 1) * limit;
+        getReports();
+    }
+
     // Función para convertir el valor del campo "Año" a un entero
     function parseYear(value) {
         return parseInt(value);
@@ -191,6 +230,10 @@ ERROR: {errorMsg}
 					</li>
 				{/each}
 			</ul>
+            <div class="pagination" style="margin-bottom: 20px;">
+                <Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}>Anterior</Button>
+                <Button on:click={nextPage} disabled={reports.length < limit}>Siguiente</Button>
+            </div>
 			<div class="d-flex justify-content-between">
 				<div>
 					<Button color="danger" outline on:click={confirmDelete}>Borrar todos los reportes</Button>
