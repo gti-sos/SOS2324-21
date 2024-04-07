@@ -101,32 +101,38 @@ Editar {country_name} con el año {year}
                 <tbody>
                     <tr>
                         <td class="py-1">GDP:</td>
-                        <td class="py-1"><input placeholder="7.697" on:input={e => report.gdp = parseGDP(e.target.value)} /></td>
+                        <td class="py-1"><input value={report.gdp} on:input={e => report.gdp = parseGDP(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class="py-1">Soporte social:</td>
-                        <td class="py-1"><input placeholder="491" on:input={e => report.social_support = parseSocialSupport(e.target.value)} /></td>
+                        <td class="py-1"><input value={report.social_support} on:input={e => report.social_support = parseSocialSupport(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class="py-1">Estimación de vida saludable:</td>
-                        <td class="py-1"><input placeholder="52.800" on:input={e => report.healthy_life_expectancy = parseHealthyLifeExpectancy(e.target.value)} /></td>
+                        <td class="py-1"><input value={report.healthy_life_expectancy} on:input={e => report.healthy_life_expectancy = parseHealthyLifeExpectancy(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class="py-1">Generosidad:</td>
-                        <td class="py-1"><input placeholder="-121" on:input={e => report.generosity = parseGenerosity(e.target.value)} /></td>
+                        <td class="py-1"><input value={report.generosity} on:input={e => report.generosity = parseGenerosity(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class="py-1">Afecto Positivo:</td>
-                        <td class="py-1"><input placeholder="496" on:input={e => report.possitive_affect = parsePositiveAffect(e.target.value)} /></td>
+                        <td class="py-1"><input value={report.possitive_affect} on:input={e => report.possitive_affect = parsePositiveAffect(e.target.value)} /></td>
                     </tr>
                     <tr>
                         <td class="py-1">Afecto Negativo:</td>
-                        <td class="py-1"><input placeholder="371" on:input={e => report.negative_affect = parseNegativeAffect(e.target.value)} /></td>
+                        <td class="py-1"><input value={report.negative_affect} on:input={e => report.negative_affect = parseNegativeAffect(e.target.value)} /></td>
                     </tr>
                 </tbody>
             </table>
             <div class="centered-button">
+                
+            </div>
+            <div class="button-center">
                 <Button color="primary" outline on:click={updateReport}>Editar</Button>
+                <a href="/happiness-reports" class="button-margin-left">
+                    <Button color="secondary" outline>Volver al Inicio</Button>
+                </a>
             </div>
             {#if errorMsg}
                 <p>{errorMsg}</p>

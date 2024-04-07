@@ -21,6 +21,19 @@
     };
     let successMessage = '';
 
+    let searchParams = {
+        country_name: "",
+        year: "",
+        gdp: "",
+        social_support: "",
+        healthy_life_expectancy: "",
+        generosity: "",
+        possitive_affect: "",
+        negative_affect: ""
+    };
+    let searchResults = [];
+    let searchErrorMsg = "";
+
     if(dev)
         API = "http://localhost:10000"+API;
 
@@ -28,18 +41,28 @@
         getReports();
     })
 
-    // async function getReports(){
-    //     try{
-    //         let response = await fetch(API,{
-    //             method: "GET"
-    //         });
+    async function searchReports() {
+        try {
+            let queryString = Object.keys(searchParams)
+                .filter(key => searchParams[key] !== "")
+                .map(key => `${key}=${searchParams[key]}`)
+                .join("&");
 
-    //         let data = await response.json();
-    //         reports = data;
-    //     } catch(e) {
-    //         errorMsg = e;
-    //     }
-    // }
+            let response = await fetch(`${API}?${queryString}`, {
+                method: "GET"
+            });
+
+            if (response.ok) {
+                let data = await response.json();
+                searchResults = data;
+                searchErrorMsg = "";
+            } else {
+                searchErrorMsg = `Error en la búsqueda: ${response.statusText}`;
+            }
+        } catch (e) {
+            searchErrorMsg = `Error en la búsqueda: ${e.message}`;
+        }
+    }
 
     async function deleteReport(n, y){
         console.log(`Deleting Report with name ${n} and year ${y}`);
@@ -204,7 +227,7 @@ ERROR: {errorMsg}
 {/if}
 
 <Row>
-	<Col sm="6">
+	<Col sm="3">
 		<div class="api-section d-flex flex-column justify-content-end">
 			<h2>Datos de la API</h2>
 			<ul>
@@ -241,8 +264,74 @@ ERROR: {errorMsg}
 			</div>
 		</div>
 	</Col>
-
-	<Col sm="6">
+    <Col sm="3">
+		<div class="create-section">
+			<h2>Buscar reportes</h2>
+            <form on:submit|preventDefault={searchReports}>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="py-1">Nombre País:</td>
+                            <td class="py-1"><input placeholder="Nombre del país" bind:value={searchParams.country_name} /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">Año:</td>
+                            <td class="py-1"><input type="number" placeholder="2030" bind:value={searchParams.year} /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">GDP:</td>
+                            <td class="py-1"><input placeholder="7.697" bind:value={searchParams.gdp} /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">Soporte social:</td>
+                            <td class="py-1"><input placeholder="491" bind:value={searchParams.social_support} /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">Estimación de vida saludable:</td>
+                            <td class="py-1"><input placeholder="52.800" bind:value={searchParams.healthy_life_expectancy} /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">Generosidad:</td>
+                            <td class="py-1"><input placeholder="-121" bind:value={searchParams.generosity} /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">Afecto Positivo:</td>
+                            <td class="py-1"><input placeholder="496" bind:value={searchParams.possitive_affect} /></td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">Afecto Negativo:</td>
+                            <td class="py-1"><input placeholder="371" bind:value={searchParams.negative_affect} /></td>
+                        </tr>
+                    </tbody>
+                </table>
+            <div class="centered-button">
+                <Button color="primary" style="" outline>Buscar</Button>
+            </div>
+        </form>
+    </div>
+    {#if searchErrorMsg}
+        <p>{searchErrorMsg}</p>
+    {/if}
+	</Col>
+    {#if searchResults.length > 0}
+    <Col sm="3">
+    <div class="create-section">
+        <h3>Resultados de la búsqueda:</h3>
+        <ul>
+            {#each searchResults as result}
+                <li class="py-1 reportItem">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <a href="/happiness-reports/{result.country_name}/{result.year}">{result.country_name} {result.year}</a>
+                        </div>
+                    </div>
+                </li>
+            {/each}
+        </ul>
+    </div>
+    </Col>
+    {/if}
+	<Col sm="3">
 		<div class="create-section">
 			<h2>Añadir nuevo Reporte</h2>
             <table>
@@ -317,7 +406,9 @@ ERROR: {errorMsg}
 	}
 
 	.centered-button {
-		margin-top: 1em;
+		display: flex;
+        justify-content: center;
+        margin-top: 1em;
 	}
 	.edits {
 		display: flex;
