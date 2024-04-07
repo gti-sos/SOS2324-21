@@ -9,12 +9,12 @@ test('has title', async ({ page }) => {
 });
 
 test('list cause of deaths', async ({ page }) => {
-  //await page.goto('http://localhost:10000/api/v1/cause-of-deaths/loadInitialData');
+  await page.goto('http://localhost:10000/api/v2/cause-of-deaths/loadInitialData');
   await page.goto('http://localhost:10000/cause-of-deaths');
 
   //await page.waitForTimeout(2000);
 
   // Expects the number of reports to be more than 0
-  let deathsCount =  (await page.locator('.listItem').all()).length;  
-  expect(deathsCount).toBeGreaterThan(0);
+  let deathsCount =  (await page.locator('.reportItem').all()).length;  
+  expect(deathsCount).toBe(10);
 });

@@ -1,7 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
-	import { Button, Col, Row } from '@sveltestrap/sveltestrap';
+	import { Button, Col, Row, Input } from '@sveltestrap/sveltestrap';
+	import {get} from 'svelte/store';
 
 	let API = '/api/v2/cause-of-deaths';
 
@@ -27,43 +28,43 @@
 		nutricional_deficiencie: 287,
 		malaria: 23
 	};
-	
+
 	let message = '';
 	let color_alert;
 	let result = '';
 	let resultStatus = '';
-	
+
 	// Paginacion
-    // Variables de paginación
-    let limit = 10; // Número de elementos por página
-    let offset = 0; // Desplazamiento inicial
+	// Variables de paginación
+	let limit = 10; // Número de elementos por página
+	let offset = 0; // Desplazamiento inicial
 
-    async function getReports() {
-        try {
-            let response = await fetch(`${API}?limit=${limit}&offset=${offset}`, {
-                method: "GET"
-            });
+	async function getReports() {
+		try {
+			let response = await fetch(`${API}?limit=${limit}&offset=${offset}`, {
+				method: 'GET'
+			});
 
-            let data = await response.json();
-            reports = data;
-        } catch (e) {
-            errorMsg = e;
-        }
-    }
+			let data = await response.json();
+			reports = data;
+		} catch (e) {
+			errorMsg = e;
+		}
+	}
 
 	// Función para cambiar de página hacia adelante
-    function nextPage() {
-        offset += limit;
-        getReports();
-    }
+	function nextPage() {
+		offset += limit;
+		getReports();
+	}
 
-    // Función para cambiar de página hacia atrás
-    function previousPage() {
-        if (offset >= limit) {
-            offset -= limit;
-            getReports();
-        }
-    }
+	// Función para cambiar de página hacia atrás
+	function previousPage() {
+		if (offset >= limit) {
+			offset -= limit;
+			getReports();
+		}
+	}
 
 	async function loadInitialData() {
 		resultStatus = result = '';
@@ -123,7 +124,7 @@
 				method: 'DELETE'
 			});
 			if (response.status == 200) {
-				getAPI();
+				getReports();
 				successMessage = `Informe con el nombre ${n} borrado exitosamente`; // Mostrar mensaje de éxito
 			} else errorMsg = 'Error eliminando el reporte (código: ' + response.status + ')';
 			setTimeout(() => {
@@ -148,8 +149,8 @@
 			let status = await response.status;
 			console.log(`Creation responde status ${status}`);
 			if (status == 201) {
-				getAPI();
-				successMessage = 'Informe creado exitosamente';
+				getReports();
+				successMessage = 'Informe creado exitosamente :)';
 			}
 			if (status == 400) {
 				errorMsg = 'Hay que insertar datos o faltan campos';
@@ -170,7 +171,18 @@
 		}
 	}
 
-	
+
+	function handleInputChange(event) {
+		const { name, value } = event.target;
+		if (name === 'country') {
+			inputCountry = value;
+		} else if (name === 'year') {
+			inputYear = value;
+		}
+	}
+
+	let inputCountry = '';
+	let inputYear = '';
 </script>
 
 <Row>
@@ -187,10 +199,29 @@
 					>
 				</div>
 			</div>
+			<div class="search" style="margin-top: 10px;">
+				<Row class="mb-3">
+					<Col>
+					  <p class="d-flex align-items-center">Búsqueda Personalizada:</p>
+					</Col>
+				  </Row>
+				  <Row class="mb-3">
+					<Col>
+					<Input type="text" name="country" bind:value={inputCountry} placeholder="Afghanistan" on:input={handleInputChange} />
+					</Col>
+					<Col>
+					  <Input type="text" name="year" bind:value={inputYear} placeholder="2002" on:input={handleInputChange} />
+					</Col>
+					<Col>
+					  <Button color="primary" outline>Buscar</Button>
+					</Col>
+				  </Row>
+				
+			</div>
 			<p></p>
 			<ul>
 				{#each reports as r}
-					<li class="py-1">
+					<li class="py-1 reportItem">
 						<div class="d-flex justify-content-between align-items-center">
 							<div>
 								<a href="/cause-of-deaths/{r.country_name}">{r.country_name}</a> - {r.code}
@@ -212,9 +243,11 @@
 				{/each}
 			</ul>
 			<div class="pagination" style="margin-bottom: 20px;">
-                <Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}>Anterior</Button>
-                <Button on:click={nextPage} disabled={reports.length < limit}>Siguiente</Button>
-            </div>
+				<Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}
+					>Anterior</Button
+				>
+				<Button on:click={nextPage} disabled={reports.length < limit}>Siguiente</Button>
+			</div>
 		</div>
 	</Col>
 
