@@ -1,8 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
-	import { Button, Col, Row, Input } from '@sveltestrap/sveltestrap';
-	import {get} from 'svelte/store';
+	import { Button, Col, Row, Input, Alert } from '@sveltestrap/sveltestrap';
 
 	let API = '/api/v2/cause-of-deaths';
 
@@ -38,7 +37,12 @@
 	// Variables de paginación
 	let limit = 10; // Número de elementos por página
 	let offset = 0; // Desplazamiento inicial
+	let showSearch = false; // Variable para controlar la visibilidad de la sección de búsqueda
 
+	// Función para modificar la visibilidad de la sección de búsqueda
+	function searchVisibililty() {
+		showSearch = !showSearch;
+	}
 	async function getReports() {
 		try {
 			let response = await fetch(`${API}?limit=${limit}&offset=${offset}`, {
@@ -50,6 +54,43 @@
 		} catch (e) {
 			errorMsg = e;
 		}
+	}
+
+	let inputCountry = '';
+	let inputYear = '';
+	let filtered = false;
+
+	async function getReportsBySearch() {
+		try {
+			let url = `${API}/${inputCountry}`;
+			if (!isNaN(inputYear)) {
+				url += `/${inputYear}`;
+			}
+			url += `?limit=${limit}&offset=${offset}`;
+			
+			let response = await fetch(url, {
+			method: 'GET'
+			});
+			filtered = true;
+			if (response.ok) {
+				let data = await response.json();
+				reports = [data]; // Aquí la respuesta se envuelve en un arreglo porque el componente espera un arreglo de reportes
+				errorMsg = ''; // Reiniciar el mensaje de error si la solicitud tiene éxito
+			} else if (response.status === 404) {
+				errorMsg = 'No se encontraron informes para el país y año especificados.';
+			} else {
+				errorMsg = `Error al obtener los informes: ${response.statusText}`;
+			}
+		} catch (e) {
+			errorMsg = `Error al obtener los informes: ${e.message}`;
+		}
+	}
+
+	async function refreshReports() {
+		await getReports(); 
+		inputCountry = '';
+    	inputYear = '';
+		filtered = false;
 	}
 
 	// Función para cambiar de página hacia adelante
@@ -116,6 +157,8 @@
 		}
 	}
 
+
+
 	async function deleteReport(n) {
 		console.log(`Borrando el reporte con el nombre ${n}`);
 
@@ -134,6 +177,12 @@
 			}, 3200);
 		} catch (e) {
 			errorMsg = e;
+		}
+	}
+	function confirmDeleteOne(country_name) {
+		if (confirm('¿Estás seguro de que quieres eliminar este reporte?')) {
+			deleteReport(country_name);
+			successMessage = `El reporte se han eliminado correctamente`; // Mostrar mensaje de éxito
 		}
 	}
 
@@ -177,12 +226,11 @@
 		if (name === 'country') {
 			inputCountry = value;
 		} else if (name === 'year') {
-			inputYear = value;
+			inputYear = parseInt(value);
 		}
 	}
 
-	let inputCountry = '';
-	let inputYear = '';
+	
 </script>
 
 <Row>
@@ -194,30 +242,27 @@
 					<Button color="primary" outline on:click={loadInitialData}>Cargar datos iniciales</Button>
 				</div>
 				<div style="margin-left: 10px;">
-					<Button color="danger" outline on:click={confirmDelete}
-						>Eliminar todos los reportes</Button
-					>
+					<Button color="danger" outline on:click={confirmDelete}>Eliminar todos los reportes</Button>
+				</div>
+				<div class="mb-3" style="margin-left: 10px;">
+					<Button color="success" outline on:click={searchVisibililty}>Búsqueda Personalizada</Button>
 				</div>
 			</div>
-			<div class="search" style="margin-top: 10px;">
+			{#if showSearch}
+			<div class="search d-flex flex-column justify-content-center align-items-center" style="margin-top: 10px;">
 				<Row class="mb-3">
-					<Col>
-					  <p class="d-flex align-items-center">Búsqueda Personalizada:</p>
-					</Col>
-				  </Row>
-				  <Row class="mb-3">
-					<Col>
-					<Input type="text" name="country" bind:value={inputCountry} placeholder="Afghanistan" on:input={handleInputChange} />
-					</Col>
-					<Col>
-					  <Input type="text" name="year" bind:value={inputYear} placeholder="2002" on:input={handleInputChange} />
-					</Col>
-					<Col>
-					  <Button color="primary" outline>Buscar</Button>
-					</Col>
-				  </Row>
-				
-			</div>
+						<Col>
+							<Input type="text" name="country" bind:value={inputCountry} placeholder="Afghanistan" on:input={handleInputChange} />
+						</Col>
+						<Col>
+							<Input type="text" name="year" bind:value={inputYear} placeholder="2002" on:input={handleInputChange} />
+						</Col>
+						<Col>
+							<Button color="primary" outline on:click={getReportsBySearch}>Buscar</Button>
+						</Col>
+					</Row>
+				</div>
+			{/if}
 			<p></p>
 			<ul>
 				{#each reports as r}
@@ -235,7 +280,7 @@
 									color="danger"
 									outline
 									size="sm"
-									on:click={() => deleteReport(r.country_name)}>Eliminar</Button
+									on:click={() => confirmDeleteOne(r.country_name)}>Eliminar</Button
 								>
 							</div>
 						</div>
@@ -243,11 +288,23 @@
 				{/each}
 			</ul>
 			<div class="pagination" style="margin-bottom: 20px;">
-				<Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}
-					>Anterior</Button
-				>
-				<Button on:click={nextPage} disabled={reports.length < limit}>Siguiente</Button>
+				<Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}>
+					<svg fill="none" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+						<path xmlns="http://www.w3.org/2000/svg" d="M14 17L8 12L14 7L14 17Z" fill="#0D0D0D"></path>
+						</svg>Anterior</Button>
+				<Button on:click={nextPage} disabled={reports.length < limit}>
+					Siguiente
+					<svg fill="white" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+						<path xmlns="http://www.w3.org/2000/svg" d="M10 7L16 12L10 17L10 7Z" fill="#0D0D0D"></path>
+						</svg></Button>
 			</div>
+			{#if filtered}
+				<Button color="warning"  on:click={refreshReports}>
+					<svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+						<path xmlns="http://www.w3.org/2000/svg" d="M17.7071 5.29289C18.0976 5.68342 18.0976 6.31658 17.7071 6.70711L12.4142 12L17.7071 17.2929C18.0976 17.6834 18.0976 18.3166 17.7071 18.7071C17.3166 19.0976 16.6834 19.0976 16.2929 18.7071L10.2929 12.7071C9.90237 12.3166 9.90237 11.6834 10.2929 11.2929L16.2929 5.29289C16.6834 4.90237 17.3166 4.90237 17.7071 5.29289ZM11.7071 5.29289C12.0976 5.68342 12.0976 6.31658 11.7071 6.70711L6.41421 12L11.7071 17.2929C12.0976 17.6834 12.0976 18.3166 11.7071 18.7071C11.3166 19.0976 10.6834 19.0976 10.2929 18.7071L4.29289 12.7071C4.10536 12.5196 4 12.2652 4 12C4 11.7348 4.10536 11.4804 4.29289 11.2929L10.2929 5.29289C10.6834 4.90237 11.3166 4.90237 11.7071 5.29289Z" fill="#0D0D0D"></path>
+						</svg>Volver
+				</Button>
+			{/if}
 		</div>
 	</Col>
 
@@ -295,10 +352,10 @@
 			</div>
 			<p></p>
 			{#if successMessage}
-				<p>{successMessage}</p>
+				<Alert color="info">{successMessage}</Alert>
 			{/if}
 			{#if errorMsg}
-				<p>{errorMsg}</p>
+				<Alert color="danger">{errorMsg}</Alert>
 			{/if}
 		</div>
 	</Col>

@@ -1,8 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
-	import { onMount } from 'svelte';
-	import { Input, Button } from '@sveltestrap/sveltestrap';
+	import { Input, Button, Alert } from '@sveltestrap/sveltestrap';
 
 	let country_name = $page.params.country_name;
 	let year = $page.params.year;
@@ -130,11 +129,12 @@
 			<Button color="secondary" outline>Volver al Inicio</Button>
 		</a>
 	</div>
+	<p></p>
 	{#if successMessage}
-		<p>{successMessage}</p>
+		<Alert color="info">{successMessage}</Alert>
 	{/if}
 	{#if errorMsg}
-		<p>{errorMsg}</p>
+		<Alert color="danger">{errorMsg}</Alert>
 	{/if}
 </div>
 
