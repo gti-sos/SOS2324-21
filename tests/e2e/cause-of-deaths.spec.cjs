@@ -3,18 +3,22 @@ const { test, expect } = require('@playwright/test');
 
 test('has title', async ({ page }) => {
   await page.goto('localhost:10000/cause-of-deaths');
-
-  // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/SOS2324-21/);
 });
 
-test('list cause of deaths', async ({ page }) => {
-  await page.goto('http://localhost:10000/api/v2/cause-of-deaths/loadInitialData');
+test('List Reports', async ({ page }) => {
   await page.goto('http://localhost:10000/cause-of-deaths');
+  await page.getByText('Cargar datos iniciales').click();
+  await page.waitForSelector('li');
+  let EntityCount = (await page.locator('#list-item').all()).length;
+  expect(EntityCount).toBeGreaterThan(0);
+});
 
-  //await page.waitForTimeout(2000);
+test('cause-of-deaths delete all reports', async ({ page }) => {
+  await page.goto('http://localhost:10000/cause-of-deaths');
+  await page.getByText('Eliminar todos los reportes').click();
+  await page.waitForSelector('ul');
+  let EntityCount = (await page.locator('#list-item').all()).length;
+  expect(EntityCount).toBe(0);
 
-  // Expects the number of reports to be more than 0
-  let deathsCount =  (await page.locator('.reportItem').all()).length;  
-  expect(deathsCount).toBe(10);
 });

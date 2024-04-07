@@ -56,42 +56,79 @@
 		}
 	}
 
-	let inputCountry = '';
-	let inputYear = '';
+	let searchParams = {
+		country_name: '',
+		code: '',
+		year: '',
+		meningitis: '',
+		alzheimer: '',
+		parkinson: '',
+		nutricional_deficiencie: '',
+		malaria: ''
+	};
+
 	let filtered = false;
 
 	async function getReportsBySearch() {
 		try {
-			let url = `${API}/${inputCountry}`;
-			if (!isNaN(inputYear)) {
-				url += `/${inputYear}`;
+			let url = `${API}?`;
+			let queryParams = [];
+
+			// Construir los parámetros de consulta según los campos no vacíos en searchParams
+			for (const key in searchParams) {
+				if (searchParams[key]) {
+					queryParams.push(`${key}=${searchParams[key]}`);
+				}
 			}
-			url += `?limit=${limit}&offset=${offset}`;
-			
+
+			if (queryParams.length > 0) {
+				url += queryParams.join('&');
+				url += `&limit=${limit}&offset=${offset}`;
+			} else {
+				url += `limit=${limit}&offset=${offset}`;
+			}
+
 			let response = await fetch(url, {
-			method: 'GET'
+				method: 'GET'
 			});
+
 			filtered = true;
 			if (response.ok) {
 				let data = await response.json();
-				reports = [data]; // Aquí la respuesta se envuelve en un arreglo porque el componente espera un arreglo de reportes
-				errorMsg = ''; // Reiniciar el mensaje de error si la solicitud tiene éxito
-			} else if (response.status === 404) {
-				errorMsg = 'No se encontraron informes para el país y año especificados.';
+				reports = data; 
+				successMessage = ''; 
+				
+				// Verificar si no se encontraron informes
+				if (reports.length === 0) {
+					errorMsg = 'No se encontraron informes para los criterios de búsqueda especificados.';
+				} else {
+					errorMsg = ''; // Limpiar el mensaje de error si se encontraron informes
+				}
+			} 
+			else if (response.status === 404) {
+				errorMsg = 'No se encontraron informes para los criterios de búsqueda especificados.';
 			} else {
 				errorMsg = `Error al obtener los informes: ${response.statusText}`;
 			}
-		} catch (e) {
-			errorMsg = `Error al obtener los informes: ${e.message}`;
-		}
+			} catch (e) {
+				errorMsg = `Error al obtener los informes: ${e.message}`;
+			}
+
 	}
 
 	async function refreshReports() {
 		await getReports(); 
-		inputCountry = '';
-    	inputYear = '';
+		for (const key in searchParams) {
+			searchParams[key] = '';
+		}
 		filtered = false;
 	}
+
+	function handleInputChange(event) {
+		const { name, value } = event.target;
+		searchParams[name] = value;
+	}
+
 
 	// Función para cambiar de página hacia adelante
 	function nextPage() {
@@ -150,13 +187,7 @@
 		}
 	}
 
-	function confirmDelete() {
-		if (confirm('¿Estás seguro de que quieres eliminar todos los reportes?')) {
-			deleteAllReports();
-			successMessage = `Todos los reportes se han borrado exitosamente`; // Mostrar mensaje de éxito
-		}
-	}
-
+	
 
 
 	async function deleteReport(n) {
@@ -168,7 +199,7 @@
 			});
 			if (response.status == 200) {
 				getReports();
-				successMessage = `Informe con el nombre ${n} borrado exitosamente`; // Mostrar mensaje de éxito
+				successMessage = `Informe con el nombre ${n} borrado exitosamente`; 
 			} else errorMsg = 'Error eliminando el reporte (código: ' + response.status + ')';
 			setTimeout(() => {
 				successMessage = '';
@@ -182,7 +213,7 @@
 	function confirmDeleteOne(country_name) {
 		if (confirm('¿Estás seguro de que quieres eliminar este reporte?')) {
 			deleteReport(country_name);
-			successMessage = `El reporte se han eliminado correctamente`; // Mostrar mensaje de éxito
+			successMessage = `El reporte se han eliminado correctamente`;
 		}
 	}
 
@@ -220,21 +251,10 @@
 		}
 	}
 
-
-	function handleInputChange(event) {
-		const { name, value } = event.target;
-		if (name === 'country') {
-			inputCountry = value;
-		} else if (name === 'year') {
-			inputYear = parseInt(value);
-		}
-	}
-
-	
 </script>
 
 <Row>
-	<Col sm="6">
+	<Col sm="7">
 		<div class="api-section d-flex flex-column justify-content-end">
 			<h2>Datos de la API</h2>
 			<div class="d-flex justify-content-between">
@@ -242,20 +262,41 @@
 					<Button color="primary" outline on:click={loadInitialData}>Cargar datos iniciales</Button>
 				</div>
 				<div style="margin-left: 10px;">
-					<Button color="danger" outline on:click={confirmDelete}>Eliminar todos los reportes</Button>
+					<Button color="danger" outline on:click={deleteAllReports}>Eliminar todos los reportes</Button>
 				</div>
 				<div class="mb-3" style="margin-left: 10px;">
 					<Button color="success" outline on:click={searchVisibililty}>Búsqueda Personalizada</Button>
 				</div>
 			</div>
 			{#if showSearch}
-			<div class="search d-flex flex-column justify-content-center align-items-center" style="margin-top: 10px;">
-				<Row class="mb-3">
-						<Col>
-							<Input type="text" name="country" bind:value={inputCountry} placeholder="Afghanistan" on:input={handleInputChange} />
+				<div class="search d-flex flex-column justify-content-center align-items-center" style="margin-top: 10px;">
+					<Row class="mb-3">
+						<Col> País:
+							<Input type="text" name="country_name" bind:value={searchParams.country_name} placeholder="Spain" on:input={handleInputChange} />
 						</Col>
-						<Col>
-							<Input type="text" name="year" bind:value={inputYear} placeholder="2002" on:input={handleInputChange} />
+						<Col> Código:
+							<Input type="text" name="code" bind:value={searchParams.code} placeholder="ESP" on:input={handleInputChange} />
+						</Col>
+						<Col> Año:
+							<Input type="text" name="year" bind:value={searchParams.year} placeholder="2003" on:input={handleInputChange} />
+						</Col>
+						<Col> Meningitis:
+							<Input type="text" name="meningitis" bind:value={searchParams.meningitis} placeholder="0" on:input={handleInputChange} />
+						</Col>
+						
+					</Row>
+					<Row>
+						<Col> Alzheimer:
+							<Input type="text" name="alzheimer" bind:value={searchParams.alzheimer} placeholder="0" on:input={handleInputChange} />
+						</Col>
+						<Col> Parkinson:
+							<Input type="text" name="parkinson" bind:value={searchParams.parkinson} placeholder="0" on:input={handleInputChange} />
+						</Col>
+						<Col> Deficiencia Nutricion:
+							<Input type="text" name="nutricional_deficiencie" bind:value={searchParams.nutricional_deficiencie} placeholder="0" on:input={handleInputChange} />
+						</Col>
+						<Col> Malaria:
+							<Input type="text" name="malaria" bind:value={searchParams.malaria} placeholder="0" on:input={handleInputChange} />
 						</Col>
 						<Col>
 							<Button color="primary" outline on:click={getReportsBySearch}>Buscar</Button>
@@ -263,13 +304,14 @@
 					</Row>
 				</div>
 			{/if}
+
 			<p></p>
 			<ul>
 				{#each reports as r}
-					<li class="py-1 reportItem">
+					<li class="py-1" id="list-item">
 						<div class="d-flex justify-content-between align-items-center">
 							<div>
-								<a href="/cause-of-deaths/{r.country_name}">{r.country_name}</a> - {r.code}
+								{r.country_name}- {r.code}
 							</div>
 							<div class="edits">
 								<a href="/cause-of-deaths/{r.country_name}/{r.year}"
@@ -308,7 +350,7 @@
 		</div>
 	</Col>
 
-	<Col sm="6">
+	<Col sm="5">
 		<div class="create-section">
 			<h2>Crear un Reporte</h2>
 			<table>

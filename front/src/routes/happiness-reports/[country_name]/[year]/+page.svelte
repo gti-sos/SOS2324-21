@@ -44,7 +44,6 @@ ERROR: {errorMsg}
 
 <hr>
 
-<!-- svelte-ignore missing-declaration -->
 <Row>
     <Col sm="6">
         <div class="create-section">
