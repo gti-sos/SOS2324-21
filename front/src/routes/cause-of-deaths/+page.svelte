@@ -376,7 +376,7 @@
 	</Col>
 
 	<Col sm="5">
-		<div class="column-container">
+		<div class="column-container-new">
 			<h2>Crear un Reporte</h2>
 			<table>
 				<tbody>
@@ -455,26 +455,38 @@
 		padding: 20px; /* Espacio interno */
 		background-color: white; /* Color de fondo */
 		margin: 20px;
+		display: flex;
+        flex-direction: column;
 	}
-	h2 {
-		font-size: 1.6em;
-		margin-bottom: 0.6em;
-	}
-	.create-section {
-		margin-top: 2em;
-	}
-	.api-section {
-		margin-top: 2em;
-		margin-left: 2em;
+	.column-container-new {
+		border-radius: 10px; /* Esquinas redondeadas */
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+		padding: 20px; /* Espacio interno */
+		background-color: white; /* Color de fondo */
+		margin: 20px;
+		display: flex;
+        flex-direction: column;
 		align-items: center;
 	}
 
-	.create-section {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		margin-bottom: 20px; /* Espacio inferior */
+    table {
+        margin-top: 20px; /* Espacio entre la tabla y el título */
+        text-align: left; /* Alinear texto a la izquierda */
+    }
+	td {
+        padding-bottom: 10px; /* Espacio entre filas */
+    }
+
+    .py-1 {
+        padding-right: 10px; /* Espacio entre texto y input */
+    }
+
+    .centered-button {
+        margin-top: 20px; /* Espacio entre la tabla y el botón */
+    }
+	h2 {
+		font-size: 1.6em;
+		margin-bottom: 0.6em;
 	}
 
 	.centered-button {

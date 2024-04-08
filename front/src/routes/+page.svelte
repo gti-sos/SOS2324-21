@@ -44,9 +44,10 @@
         <Col>
             <h2>APIs:</h2>
             <ul>
-                <li>- Cause of deaths: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/cause-of-deaths/docs">https://sos2324-21.ew.r.appspot.com/api/v1/cause-of-deaths/docs</a> (developed by Maria Luisa Rodriguez Cabrera)</li>
-                <li>- Happiness reports: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs">https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs</a> (developed by Jesús Manuel Méndez Martínez)</li>
-                <li>- Chocolate Ratings: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs">https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs</a> (developed by Alejandro Morilla García)</li>
+                <li>Cause of deaths - V1: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/cause-of-deaths/docs">https://sos2324-21.ew.r.appspot.com/api/v1/cause-of-deaths/docs</a> (developed by Maria Luisa Rodriguez Cabrera)</li>
+                <li>Cause of deaths - V2: <a href="https://sos2324-21.ew.r.appspot.com/api/v2/cause-of-deaths/docs">https://sos2324-21.ew.r.appspot.com/api/v2/cause-of-deaths/docs</a> (developed by Maria Luisa Rodriguez Cabrera)</li>
+                <li>Happiness reports: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs">https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs</a> (developed by Jesús Manuel Méndez Martínez)</li>
+                <li>Chocolate Ratings: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs">https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs</a> (developed by Alejandro Morilla García)</li>
             </ul>
         </Col>
     </Row>

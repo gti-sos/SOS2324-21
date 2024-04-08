@@ -28,6 +28,11 @@ app.get('/api/v2/cause-of-deaths/docs', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32977574/2sA2xb7GDm');
 });
 
+app.get('/api/v1/cause-of-deaths/docs', (req, res) => {
+    res.redirect('https://documenter.getpostman.com/view/32977574/2sA35MzK18');
+});
+
+
 loadBackendJMM(app, dbHappiness);
 loadBackendMRC(app, dbCauseDeaths);
 api_AMG(app, dbChocolates);

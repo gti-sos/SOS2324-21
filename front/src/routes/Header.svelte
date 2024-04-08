@@ -2,7 +2,7 @@
     import { Navbar, NavbarBrand, Nav, NavLink } from '@sveltestrap/sveltestrap';
 </script>
 
-<Navbar color="light" light expand="md">
+<Navbar style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)" color="light"  light expand="md">
     <Nav navbar>
         <NavLink href="/">Inicio</NavLink>
         <NavLink href="/cause-of-deaths">Cause of Deaths</NavLink>
