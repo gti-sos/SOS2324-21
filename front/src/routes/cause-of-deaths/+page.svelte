@@ -101,18 +101,24 @@
 				// Verificar si no se encontraron informes
 				if (reports.length === 0) {
 					errorMsg = 'No se encontraron informes para los criterios de búsqueda especificados.';
+					console.log(errorMsg);
 				} else {
 					errorMsg = ''; // Limpiar el mensaje de error si se encontraron informes
 				}
 			} 
 			else if (response.status === 404) {
 				errorMsg = 'No se encontraron informes para los criterios de búsqueda especificados.';
+				
 			} else {
 				errorMsg = `Error al obtener los informes: ${response.statusText}`;
 			}
 			} catch (e) {
 				errorMsg = `Error al obtener los informes: ${e.message}`;
 			}
+			setTimeout(() => {
+				errorMsg = '';
+				color_alert = '';
+			}, 3200);
 
 	}
 
@@ -255,8 +261,20 @@
 
 <Row>
 	<Col sm="7">
-		<div class="api-section d-flex flex-column justify-content-end">
-			<h2>Datos de la API</h2>
+		<div class="column-container d-flex flex-column ">
+			
+			<Row>
+				<Col><h2>Datos de la API</h2></Col>
+				<Col>
+					{#if successMessage}
+						<Alert color="info">{successMessage}</Alert>
+					{/if}
+					{#if errorMsg}
+						<Alert color="danger">{errorMsg}</Alert>
+					{/if}
+				</Col>
+			</Row>
+			
 			<div class="d-flex justify-content-between">
 				<div>
 					<Button color="primary" outline on:click={loadInitialData}>Cargar datos iniciales</Button>
@@ -269,6 +287,7 @@
 				</div>
 			</div>
 			{#if showSearch}
+			<div class="search-container">
 				<div class="search d-flex flex-column justify-content-center align-items-center" style="margin-top: 10px;">
 					<Row class="mb-3">
 						<Col> País:
@@ -292,23 +311,25 @@
 						<Col> Parkinson:
 							<Input type="text" name="parkinson" bind:value={searchParams.parkinson} placeholder="0" on:input={handleInputChange} />
 						</Col>
-						<Col> Deficiencia Nutricion:
+						<Col> Def. Nutrición:
 							<Input type="text" name="nutricional_deficiencie" bind:value={searchParams.nutricional_deficiencie} placeholder="0" on:input={handleInputChange} />
 						</Col>
 						<Col> Malaria:
 							<Input type="text" name="malaria" bind:value={searchParams.malaria} placeholder="0" on:input={handleInputChange} />
 						</Col>
-						<Col>
+						
+					</Row>
+					<Row>
+						<div class="mb-3" style="margin-top: 20px;">
 							<Button color="primary" outline on:click={getReportsBySearch}>Buscar</Button>
-						</Col>
+						</div>
 					</Row>
 				</div>
+			</div>
 			{/if}
-
-			<p></p>
-			<ul>
+			<ul class="centered-list">
 				{#each reports as r}
-					<li class="py-1" id="list-item">
+					<li class="py-1 list-item" id="list-item">
 						<div class="d-flex justify-content-between align-items-center">
 							<div>
 								{r.country_name}- {r.code}
@@ -329,29 +350,33 @@
 					</li>
 				{/each}
 			</ul>
-			<div class="pagination" style="margin-bottom: 20px;">
-				<Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}>
-					<svg fill="none" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-						<path xmlns="http://www.w3.org/2000/svg" d="M14 17L8 12L14 7L14 17Z" fill="#0D0D0D"></path>
-						</svg>Anterior</Button>
-				<Button on:click={nextPage} disabled={reports.length < limit}>
-					Siguiente
-					<svg fill="white" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
-						<path xmlns="http://www.w3.org/2000/svg" d="M10 7L16 12L10 17L10 7Z" fill="#0D0D0D"></path>
-						</svg></Button>
+			<div class="pagination-container">
+				<div class="pagination" style="margin-bottom: 20px;">
+					<Button style="margin-right: 10px;" on:click={previousPage} disabled={offset === 0}>
+						<svg fill="none" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+							<path xmlns="http://www.w3.org/2000/svg" d="M14 17L8 12L14 7L14 17Z" fill="#0D0D0D"></path>
+							</svg>Anterior</Button>
+					<Button on:click={nextPage} disabled={reports.length < limit}>
+						Siguiente
+						<svg fill="white" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+							<path xmlns="http://www.w3.org/2000/svg" d="M10 7L16 12L10 17L10 7Z" fill="#0D0D0D"></path>
+							</svg></Button>
+				</div>
+				{#if filtered}
+				<div style="text-align: center;">
+					<Button color="warning"  on:click={refreshReports}>
+						<svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+							<path xmlns="http://www.w3.org/2000/svg" d="M17.7071 5.29289C18.0976 5.68342 18.0976 6.31658 17.7071 6.70711L12.4142 12L17.7071 17.2929C18.0976 17.6834 18.0976 18.3166 17.7071 18.7071C17.3166 19.0976 16.6834 19.0976 16.2929 18.7071L10.2929 12.7071C9.90237 12.3166 9.90237 11.6834 10.2929 11.2929L16.2929 5.29289C16.6834 4.90237 17.3166 4.90237 17.7071 5.29289ZM11.7071 5.29289C12.0976 5.68342 12.0976 6.31658 11.7071 6.70711L6.41421 12L11.7071 17.2929C12.0976 17.6834 12.0976 18.3166 11.7071 18.7071C11.3166 19.0976 10.6834 19.0976 10.2929 18.7071L4.29289 12.7071C4.10536 12.5196 4 12.2652 4 12C4 11.7348 4.10536 11.4804 4.29289 11.2929L10.2929 5.29289C10.6834 4.90237 11.3166 4.90237 11.7071 5.29289Z" fill="#0D0D0D"></path>
+							</svg>Volver
+					</Button>
+				</div>
+				{/if}
 			</div>
-			{#if filtered}
-				<Button color="warning"  on:click={refreshReports}>
-					<svg fill="none" viewBox="0 0 24 24" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
-						<path xmlns="http://www.w3.org/2000/svg" d="M17.7071 5.29289C18.0976 5.68342 18.0976 6.31658 17.7071 6.70711L12.4142 12L17.7071 17.2929C18.0976 17.6834 18.0976 18.3166 17.7071 18.7071C17.3166 19.0976 16.6834 19.0976 16.2929 18.7071L10.2929 12.7071C9.90237 12.3166 9.90237 11.6834 10.2929 11.2929L16.2929 5.29289C16.6834 4.90237 17.3166 4.90237 17.7071 5.29289ZM11.7071 5.29289C12.0976 5.68342 12.0976 6.31658 11.7071 6.70711L6.41421 12L11.7071 17.2929C12.0976 17.6834 12.0976 18.3166 11.7071 18.7071C11.3166 19.0976 10.6834 19.0976 10.2929 18.7071L4.29289 12.7071C4.10536 12.5196 4 12.2652 4 12C4 11.7348 4.10536 11.4804 4.29289 11.2929L10.2929 5.29289C10.6834 4.90237 11.3166 4.90237 11.7071 5.29289Z" fill="#0D0D0D"></path>
-						</svg>Volver
-				</Button>
-			{/if}
 		</div>
 	</Col>
 
 	<Col sm="5">
-		<div class="create-section">
+		<div class="column-container">
 			<h2>Crear un Reporte</h2>
 			<table>
 				<tbody>
@@ -392,18 +417,45 @@
 			<div class="centered-button">
 				<Button color="primary" outline on:click={createReport}>Crear</Button>
 			</div>
-			<p></p>
-			{#if successMessage}
-				<Alert color="info">{successMessage}</Alert>
-			{/if}
-			{#if errorMsg}
-				<Alert color="danger">{errorMsg}</Alert>
-			{/if}
 		</div>
 	</Col>
 </Row>
 
 <style>
+	.pagination-container {
+		margin: 0 auto; /* Centrar horizontalmente */
+		width: fit-content; /* Ajustar el ancho al contenido */
+	}
+
+	.search-container {
+		background-color: rgba(129, 183, 231, 0.3); /* Color de fondo verde transparente */
+		padding: 10px; /* Espacio interno */
+		padding-left: 20px; /* Espacio interno izquierdo */
+		padding-right: 20px; /* Espacio interno derecho */
+		border-radius: 10px; /* Esquinas redondeadas */
+		margin-top: 10px; /* Margen superior */
+	}
+
+	.search-container .search {
+		width: 100%; /* Ajusta el ancho al 100% */
+	}
+	.centered-list {
+		list-style-type: none; /* Quita los marcadores de lista */
+		padding: 0; /* Elimina el relleno */
+		text-align: center; /* Centra horizontalmente los elementos de la lista */
+	}
+
+	.centered-list li {
+		margin: 5px; /* Espaciado entre elementos de la lista */
+	}
+
+	.column-container {
+		border-radius: 10px; /* Esquinas redondeadas */
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+		padding: 20px; /* Espacio interno */
+		background-color: white; /* Color de fondo */
+		margin: 20px;
+	}
 	h2 {
 		font-size: 1.6em;
 		margin-bottom: 0.6em;
