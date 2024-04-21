@@ -1,5 +1,5 @@
 const API_BASE = '/api/v2/cause-of-deaths';
-import { datos_mrc } from "./datosMRC.js";
+import { datos_mrc } from './datosMRC.js';
 
 
 function loadBackendMRC(app, db){

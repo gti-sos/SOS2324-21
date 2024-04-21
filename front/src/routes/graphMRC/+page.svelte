@@ -38,19 +38,16 @@
 				page++;
 			}
 
-			console.log(`All data received: ${JSON.stringify(allData, null, 2)}'`);
+			//console.log(`All data received: ${JSON.stringify(allData, null, 2)}'`);
 			columnData = allData;
 			pieData = allData;
-			console.log(pieData);
 		} catch (error) {
 			console.log(`Error fetching data: ${error}`);
 		}
 	}
 
 	function filterColumnData(data, selectedCountry) {
-		// Filtrar los datos solo para el país seleccionado
 		const filteredData = data.filter((item) => item.country_name === selectedCountry);
-		console.log(filteredData);
 		const transformedData = filteredData.map((item) => ({
 			country_name: item.country_name,
 			year: item.year,
@@ -60,6 +57,7 @@
 			nutricional_deficiencie: item.nutricional_deficiencie,
 			malaria: item.malaria
 		}));
+        transformedData.sort((a, b) => parseInt(a.year) - parseInt(b.year));
 		columnChart(transformedData, selectedCountry);
 	}
 
@@ -102,50 +100,58 @@
 		});
 	}
 
-	function filterPieData(data) {
-		// Calcular la suma total de muertes por enfermedad en todos los años
-		const totalData = data.reduce(
-			(total, item) => {
-				return {
-					meningitis: total.meningitis + item.meningitis,
-					alzheimer: total.alzheimer + item.alzheimer,
-					parkinson: total.parkinson + item.parkinson,
-					nutricional_deficiencie: total.nutricional_deficiencie + item.nutricional_deficiencie,
-					malaria: total.malaria + item.malaria
-				};
-			},
-			{ meningitis: 0, alzheimer: 0, parkinson: 0, nutricional_deficiencie: 0, malaria: 0 }
-		);
+    function filterPieData(data, selectedCountry) {
+    // Filtrar los datos solo para el país seleccionado
+    const filteredData = data.filter((item) => item.country_name === selectedCountry);
 
-		// Calcular los porcentajes de muertes por enfermedad
-		const totalDeaths = Object.values(totalData).reduce((total, value) => total + value, 0);
-		const percentagesData = Object.keys(totalData).reduce((result, key) => {
-			result[key] = (totalData[key] / totalDeaths) * 100;
-			return result;
-		}, {});
+    if (filteredData.length === 0) {
+        console.error('No se encontraron datos para el país seleccionado.');
+        return;
+    }
 
-		pieChart(percentagesData);
-	}
+    // Calcular la suma total de muertes por enfermedad en todos los años
+    const totalData = filteredData.reduce(
+        (total, item) => {
+            return {
+                meningitis: total.meningitis + item.meningitis,
+                alzheimer: total.alzheimer + item.alzheimer,
+                parkinson: total.parkinson + item.parkinson,
+                nutricional_deficiencie: total.nutricional_deficiencie + item.nutricional_deficiencie,
+                malaria: total.malaria + item.malaria
+            };
+        },
+        { meningitis: 0, alzheimer: 0, parkinson: 0, nutricional_deficiencie: 0, malaria: 0 }
+    );
 
-	function pieChart(data) {
-		Highcharts.chart('container', {
-			chart: {
-				type: 'pie'
-			},
-			title: {
-				text: 'Porcentaje de enfermedades en Afghanistan'
-			},
-			tooltip: {
-				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			},
-			series: [
-				{
-					name: 'Enfermedades',
-					data: Object.keys(data).map((key) => ({ name: key, y: data[key] }))
-				}
-			]
-		});
-	}
+    // Calcular los porcentajes de muertes por enfermedad
+    const totalDeaths = Object.values(totalData).reduce((total, value) => total + value, 0);
+    const percentagesData = Object.keys(totalData).reduce((result, key) => {
+        result[key] = (totalData[key] / totalDeaths) * 100;
+        return result;
+    }, {});
+
+    pieChart(percentagesData, selectedCountry);
+}
+
+function pieChart(data, selectedCountry) {
+    Highcharts.chart('container', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Porcentaje de enfermedades en ' + selectedCountry
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        series: [
+            {
+                name: 'Enfermedades',
+                data: Object.keys(data).map((key) => ({ name: key, y: data[key] }))
+            }
+        ]
+    });
+}
 </script>
 
 
@@ -158,7 +164,7 @@
 				<Button class="m-1" color="primary" on:click={filterColumnData(columnData, 'Morocco')}
 					>Gráfico de Columnas</Button
 				>
-				<Button class="m-1" color="primary" on:click={filterPieData(pieData)}
+				<Button class="m-1" color="primary" on:click={filterPieData(pieData, 'Germany')}
 					>Gráfico de Tarta</Button
 				>
 			</div>
