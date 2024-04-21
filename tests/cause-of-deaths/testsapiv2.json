@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "0e3e9af4-aab3-4592-b5d0-06d39ddef5cd",
-		"name": "Cause-of-Deaths API Testing",
+		"_postman_id": "be04edd6-a6fc-44e4-b908-292293e38ef7",
+		"name": "Cause-of-Deaths API Testing V1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32977574",
-		"_collection_link": "https://sos2324-21.postman.co/workspace/SOS-21-Workspace~8bb8fc11-4301-4a6c-8626-bcccc27381b4/collection/32977574-0e3e9af4-aab3-4592-b5d0-06d39ddef5cd?action=share&source=collection_link&creator=32977574"
+		"_collection_link": "https://sos2324-21.postman.co/workspace/SOS-21-Workspace~8bb8fc11-4301-4a6c-8626-bcccc27381b4/collection/32977574-be04edd6-a6fc-44e4-b908-292293e38ef7?action=share&source=collection_link&creator=32977574"
 	},
 	"item": [
 		{
@@ -102,7 +102,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country_name\": \"Norway\",\r\n        \"code\": \"NOW\",\r\n        \"year\": 2000,\r\n        \"meningitis\": 2475,\r\n        \"alzheimer\": 1162,\r\n        \"parkinson\": 378,\r\n        \"nutricional_deficiencie\": 2441,\r\n        \"malaria\": 239\r\n}",
+					"raw": "{\r\n        \"country_name\": \"Morocco\",\r\n        \"code\": \"MOR\",\r\n        \"year\": 12,\r\n        \"meningitis\": 144,\r\n        \"alzheimer\": 1162,\r\n        \"parkinson\": 378,\r\n        \"nutricional_deficiencie\": 2441,\r\n        \"malaria\": 239\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -412,7 +412,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country_name\": \"Norw\",\r\n        \"code\": \"NOW\",\r\n        \"year\": 2001,\r\n        \"meningitis\": 881,\r\n        \"alzheimer\": 1162,\r\n        \"parkinson\": 378,\r\n        \"nutricional_deficiencie\": 2441,\r\n        \"malaria\": 239\r\n}",
+					"raw": "{\r\n        \"country_name\": \"España\",\r\n        \"code\": \"ESP\",\r\n        \"year\": 2001,\r\n        \"meningitis\": 881,\r\n        \"alzheimer\": 1162,\r\n        \"parkinson\": 378,\r\n        \"nutricional_deficiencie\": 2441,\r\n        \"malaria\": 239\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -420,7 +420,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Germany",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/España",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -428,7 +428,7 @@
 						"api",
 						"v2",
 						"cause-of-deaths",
-						"Germany"
+						"España"
 					]
 				}
 			},
