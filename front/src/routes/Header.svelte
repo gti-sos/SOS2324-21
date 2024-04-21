@@ -7,7 +7,9 @@
         <NavLink href="/">Inicio</NavLink>
         <NavLink href="/cause-of-deaths">Cause of Deaths</NavLink>
         <NavLink href="/happiness-reports">Happiness reports</NavLink>
+        <NavLink href="/graphMRC">Graphs</NavLink>
         <NavLink href="/about">Sobre nosotros...</NavLink>
+
     </Nav>
 </Navbar>
 
