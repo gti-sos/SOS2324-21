@@ -122,35 +122,43 @@
 
 	}
 
-function columnChart(data, selectedCountry) {
-    Highcharts.chart('container', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Gráfico de generosidad 2008-2017 en ' + selectedCountry
-    },
-    xAxis: {
-        categories: data.map((item) => item.year)
-    },
-    yAxis: {
+function columnChart(data) {
+	Highcharts.chart('container', {
+        chart: {
+            type: 'bar'
+        },
         title: {
-            text: 'Generosity Value'
-        }
-    },
-    credits: {
-        enabled: false
-    },
-    plotOptions: {
-        column: {
-            borderRadius: '25%'
-        }
-    },
-    series: [{
-        name: 'Generosidad',
-        data: data.map((item) => item.generosity)
-    }]
-});
+            text: 'Datos por año'
+        },
+        xAxis: {
+            title: {
+                text: 'Año'
+            },
+            categories: Data.map((item) => item.year)
+        },
+        yAxis: [{
+            title: {
+                text: 'GDP'
+            }
+        }, {
+            title: {
+                text: 'Generosidad'
+            },
+            opposite: true,
+            min: 0
+        }],
+        tooltip: {
+            shared: true
+        },
+        series: [{
+            name: 'GDP',
+            data: data.map((item) => item.gdp)
+        }, {
+            name: 'Generosidad',
+            data: data.map((item) => item.generosity),
+            yAxis: 1
+        }]
+        });
 }
 </script>
 
@@ -165,7 +173,7 @@ function columnChart(data, selectedCountry) {
 					>Gráfico de Area</Button
 				>
 				<Button class="m-1" color="primary" on:click={filterColumnData(Data, 'Afghanistan')}
-					>Gráfico de Columnas</Button
+					>Gráfico de Barras</Button
 				>
 			</div>
 		</div>

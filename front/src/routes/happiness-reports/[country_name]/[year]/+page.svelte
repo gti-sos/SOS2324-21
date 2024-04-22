@@ -18,12 +18,18 @@
             let response = await fetch(API+"/"+country_name +"/"+year,{
                 method: "GET"
             });
-
-            let data = await response.json();
-            report = data;
             
+            let status = await response.status;
+
+            if(status == 404){
+                console.log(status);
+                errorMsg = "No se encontro el reporte";
+            } else {
+                let data = await response.json();
+                report = data;
+            }
         } catch(e) {
-            errorMsg = e;
+            console.log(e);
         }
     }
     getEditReport(); 
@@ -38,9 +44,14 @@ Detalles de {country_name} con año {year}
 {#if successMessage}
 	<p>{successMessage}</p>
 {/if}
+
 {#if errorMsg != ""}
-ERROR: {errorMsg}
-{/if}
+<hr>
+
+{errorMsg}
+
+
+{:else}
 
 <hr>
 
@@ -98,6 +109,9 @@ ERROR: {errorMsg}
         </div>
     </Col>
 </Row>
+
+{/if}
+
 
 <style>
 	h2 {
