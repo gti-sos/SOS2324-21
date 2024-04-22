@@ -52,7 +52,8 @@
 			let data = await response.json();
 			reports = data;
 		} catch (e) {
-			errorMsg = e;
+			errorMsg = `Error al obtener los informes`;
+			console.log(e);
 		}
 	}
 
