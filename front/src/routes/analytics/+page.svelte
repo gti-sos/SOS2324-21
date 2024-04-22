@@ -15,9 +15,12 @@
   const reportsAPI = 'http://localhost:10000/api/v1/happiness-reports';
   let Data = [];
 
-  async function getData(url) {
+  async function getData(API) {
         try {
-            const res = await fetch(url);
+            await fetch(API+'/loadInitialData', {
+                method: "GET",
+            });
+            const res = await fetch(API);
             const data = await res.json();
             return data;
         } catch (error) {
@@ -25,50 +28,35 @@
         }
     }
 
-  async function processData() {
+  async function mixData() {
       const causesData = await getData(causesAPI);
       const reportsData = await getData(reportsAPI);
-      const processedData = {};
 
-      causesData.forEach(c => {
-          const country_name = c.country_name;
-          const year = c.year;
-          const nutricional_deficiencie = c.nutricional_deficiencie;
-        
-          if (!processedData[year]) {
-              processedData[year] = {
-                  country: country_name,
-                  year: year,
-                  nutricional_deficiencie: nutricional_deficiencie,
-                  healthy_life_expectancy: 0
-              };
-          }
 
-          processedData[year].nutricional_deficiencie = nutricional_deficiencie || 0;
-      });
-
-      reportsData.forEach(r => {
-        const country_name = r.country_name;
-        const year = r.year;
-        const healthy_life_expectancy = r.healthy_life_expectancy;
-
-        if (!processedData[year]) {
-            processedData[year] = {
-                country: country_name,
-                year: year,
-                nutricional_deficiencie: 0,
-                healthy_life_expectancy: healthy_life_expectancy
-            };
+      let dataMixed = [];
+        for (var i = 0; i < causesData.length; i++) {
+            for (var j = 0; j < reportsData.length; j++) {
+                if (causesData[i].year == reportsData[j].year){
+                    dataMixed.push({
+                        "year": causesData[i].year,
+                        "healthy_life_expectancy": reportsData[i].healthy_life_expectancy,
+                        "possitive_affect": reportsData[j].possitive_affect,
+                        "negative_affect": reportsData[j].negative_affect,
+                        "nutricional_deficiencie": causesData[i].nutricional_deficiencie,
+                        "alzheimer": causesData[i].alzheimer
+                    });
+                }
+            }
         }
-        processedData[year].healthy_life_expectancy = healthy_life_expectancy || 0;
-      });
-
+        dataMixed.sort(function(a, b) {
+            return a.year - b.year;
+        });
       // Convertir objeto combinado en un array
-      Data = Object.values(processedData);
-      console.log(Data)
+      Data = dataMixed
+      //console.log(Data)
   }
   
-  function createChart(Data) {
+  function createChart() {
     Highcharts.chart('container', {
         chart: {
             type: 'bar'
@@ -80,11 +68,11 @@
             title: {
                 text: 'Año'
             },
-            categories: Data.map(year => year.year)
+            categories: Data.map((item) => item.year)
         },
         yAxis: [{
             title: {
-                text: 'Healthy life expectancy'
+                text: 'Nefative Affect'
             }
         }, {
             title: {
@@ -97,11 +85,11 @@
             shared: true
         },
         series: [{
-            name: 'Healthy life expectancy',
-            data: Data.map(year => year.healthy_life_expectancy)
+            name: 'Negative Affect',
+            data: Data.map((item) => item.negative_affect)
         }, {
             name: 'Nutricional Deficiencie',
-            data: Data.map(year => year.nutricional_deficiencie),
+            data: Data.map((item) => item.nutricional_deficiencie),
             yAxis: 1
         }]
         });
@@ -111,7 +99,7 @@
   onMount(async () => {
 
     try {
-      await processData();
+      await mixData();
       createChart();
 
     } catch (error) {
