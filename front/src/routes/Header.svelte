@@ -1,18 +1,30 @@
 <script>
-    import { Navbar, NavbarBrand, Nav, NavLink } from '@sveltestrap/sveltestrap';
+	import { Navbar, NavbarBrand, Nav, NavLink, NavItem, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem} from '@sveltestrap/sveltestrap';
 </script>
 
-<Navbar style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)" color="light"  light expand="md">
-    <Nav navbar>
-        <NavLink href="/">Inicio</NavLink>
-        <NavLink href="/cause-of-deaths">Cause of Deaths</NavLink>
-        <NavLink href="/happiness-reports">Happiness reports</NavLink>
-        <NavLink href="/graphMRC">Graphs</NavLink>
-        <NavLink href="/about">Sobre nosotros...</NavLink>
+<Navbar style=" box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)" color="light" light expand="md">
+	<Nav navbar>
+		<NavLink href="/">Inicio</NavLink>
+		<NavLink href="/cause-of-deaths">Cause of Deaths</NavLink>
+		<NavLink href="/happiness-reports">Happiness reports</NavLink>
+		<NavLink href="/analytics">Analytics</NavLink>
+		<NavItem
+			><ButtonDropdown>
+				<DropdownToggle color="" caret>Graphics</DropdownToggle>
+				<DropdownMenu>
+					<DropdownItem><a href="/cause-of-deaths/graphMRC">Cause of deaths</a></DropdownItem>
+				</DropdownMenu>
+			</ButtonDropdown>
+		</NavItem>
 
-    </Nav>
+		<NavLink href="/about">Sobre nosotros...</NavLink>
+	</Nav>
 </Navbar>
 
 <style>
-    /* Puedes agregar estilos adicionales aquí si lo necesitas */
-</style>
+    a {
+        color: #1e90ff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    </style>
