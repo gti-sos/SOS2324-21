@@ -9,9 +9,16 @@
 
 <script>
 	import { onMount } from 'svelte';
+	import { dev } from '$app/environment';
 	import { Button, Row, Col } from '@sveltestrap/sveltestrap';
 
-	const DATAAPI = 'http://localhost:10000/api/v2/cause-of-deaths';
+	//const DATAAPI = 'http://localhost:10000/api/v2/cause-of-deaths';
+
+	let DATAAPI = '/api/v2/cause-of-deaths';
+
+	if (dev) {
+		DATAAPI = 'http://localhost:10000/api/v2/cause-of-deaths';
+	}
 
 	let columnData = [];
 	let pieData = [];
