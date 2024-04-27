@@ -12,7 +12,8 @@
 			><ButtonDropdown>
 				<DropdownToggle color="" caret>Graphics</DropdownToggle>
 				<DropdownMenu>
-					<DropdownItem><a href="/cause-of-deaths/graphMRC">Cause of deaths</a></DropdownItem>
+					<DropdownItem><a href="/cause-of-deaths/graphMRC">Highcharts Graphics</a></DropdownItem>
+					<DropdownItem><a href="/cause-of-deaths/graphD3">D3 Graphics</a></DropdownItem>
 				</DropdownMenu>
 			</ButtonDropdown>
 		</NavItem>
