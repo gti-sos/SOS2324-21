@@ -1,5 +1,5 @@
 name: CI / CD
-on: [push, pull_request]
+on: [push,pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -10,12 +10,15 @@ jobs:
       - run: npm install
       - run: npx playwright install --with-deps
       - run: npm test
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
   
+  upload_coverage:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
 
   deploy:
     needs: [upload_coverage]
