@@ -1,5 +1,6 @@
 # SOS2324-21
 [![Snyk Vulnerabilities](https://snyk.io/test/github/gti-sos/SOS2324-21/badge.svg)](https://snyk.io/test/github/gti-sos/SOS2324-21)
+[![codecov](https://codecov.io/gh/gti-sos/SOS2324-21/graph/badge.svg?token=k4KEkKfVZL)](https://codecov.io/gh/gti-sos/SOS2324-21)
 ---------------------------
 - **Team**
   - [Maria Luisa Rodriguez Cabrera](https://github.com/marrodcab12)
