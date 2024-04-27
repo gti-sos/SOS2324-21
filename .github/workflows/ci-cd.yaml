@@ -18,11 +18,23 @@ jobs:
       - name: Install Snyk CLI
         run: npm install -g snyk
 
+      - name: Authenticate Snyk
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
       - name: Run Snyk security scan
         run: snyk test
+  
+  upload_coverage:
+    runs-on: ubuntu-latest
+    needs: [snyk_scan]
+    steps:
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
 
   deploy:
-    needs: [test]
+    needs: [upload_coverage]
     runs-on: ubuntu-latest
     environment: production
     steps:
