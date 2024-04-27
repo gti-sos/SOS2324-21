@@ -31,6 +31,7 @@
   "type": "module",
   "devDependencies": {
     "@playwright/test": "^1.43.0",
+    "@snyk/protect": "^1.1290.0",
     "@types/node": "^20.12.5"
   }
 }

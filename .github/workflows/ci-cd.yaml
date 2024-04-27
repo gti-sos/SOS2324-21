@@ -11,6 +11,16 @@ jobs:
       - run: npx playwright install --with-deps
       - run: npm test
   
+  snyk_scan:
+    needs: [test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk security scan
+        run: snyk test
+
   deploy:
     needs: [test]
     runs-on: ubuntu-latest
