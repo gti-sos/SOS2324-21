@@ -15,6 +15,9 @@ jobs:
     needs: [test]
     runs-on: ubuntu-latest
     steps:
+      - name: Check current directory 
+        run: pwd
+
       - name: Install Snyk CLI
         run: npm install -g snyk
 

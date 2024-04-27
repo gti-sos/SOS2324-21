@@ -74,7 +74,7 @@
 				type: 'column'
 			},
 			title: {
-				text: 'Enfermedades por año en ' + selectedCountry,
+				text: 'Enfermedades por año en el país ' + selectedCountry,
 				align: 'center'
 			},
 			subtitle: {
@@ -146,7 +146,7 @@ function pieChart(data, selectedCountry) {
             type: 'pie'
         },
         title: {
-            text: 'Porcentaje de enfermedades en ' + selectedCountry
+            text: 'Porcentaje de enfermedades a lo largo de los años en ' + selectedCountry
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
