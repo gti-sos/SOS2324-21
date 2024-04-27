@@ -18,6 +18,9 @@ jobs:
       - name: Check current directory 
         run: pwd
 
+      - name: Change directory to project root
+        run: cd $GITHUB_WORKSPACE
+
       - name: Install Snyk CLI
         run: npm install -g snyk
 
