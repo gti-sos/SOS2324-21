@@ -13,8 +13,7 @@
     "test-e2e": "npx playwright test",
     "coverage": "nyc npm run test",
     "report-test": "nyc report --reporter=text-lcov > coverage.lcov",
-    "test": "npm run testMRClocal && npm run testJMMlocal && npm run test-e2e",
-    "posttest": "kill `ps -uax | grep \"node index\" | grep -v \"grep\" | grep -v \"sh\" | awk '{print $2}'`"
+    "test": "npm run testMRClocal && npm run testJMMlocal && npm run test-e2e"
   },
   "author": "",
   "license": "GPL-3.0",
