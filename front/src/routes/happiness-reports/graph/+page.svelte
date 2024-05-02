@@ -11,10 +11,9 @@
 	import { onMount } from 'svelte';
 	import { Button, Row, Col } from '@sveltestrap/sveltestrap';
 
-	const API = 'http://localhost:10000/api/v1/happiness-reports';
+	const API = 'http://sos2324-21.appspot.com/api/v1/happiness-reports';
 
 	let Data = [];
-	//let pieData = [];
 
 	onMount(async () => {
 		await getData();
