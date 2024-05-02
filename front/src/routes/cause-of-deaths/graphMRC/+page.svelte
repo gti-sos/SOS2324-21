@@ -14,7 +14,7 @@
 
 	//const DATAAPI = 'http://localhost:10000/api/v2/cause-of-deaths';
 
-	let DATAAPI = 'https://sos2324-21.appspot.com/api/v2/cause-of-deaths';
+	let DATAAPI = '/api/v2/cause-of-deaths';
 
 	if (dev) {
 		DATAAPI = 'http://localhost:10000/api/v2/cause-of-deaths';
