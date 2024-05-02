@@ -11,7 +11,7 @@
 	import { onMount } from 'svelte';
 	import { Button, Row, Col } from '@sveltestrap/sveltestrap';
 
-	const API = 'http://sos2324-21.appspot.com/api/v1/happiness-reports';
+	const API = 'https://sos2324-21.appspot.com/api/v1/happiness-reports';
 
 	let Data = [];
 	//let pieData = [];
@@ -24,7 +24,7 @@
 		try {
 			let offset = 0;
 			let limit = 10; // Cantidad de datos a recuperar por página
-
+            await fetch(`${API}/loadInitialData`);
 			const res = await fetch(`${API}?limit=${limit}&offset=${offset}`);
 			const data = await res.json();
 
