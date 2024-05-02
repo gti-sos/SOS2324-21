@@ -14,6 +14,7 @@
 	const API = 'http://sos2324-21.appspot.com/api/v1/happiness-reports';
 
 	let Data = [];
+	//let pieData = [];
 
 	onMount(async () => {
 		await getData();
@@ -166,7 +167,7 @@ function columnChart(data) {
 <Row>
 	<Col>
 		<div class="column-container">
-			<h3 class="text-center">Gráficos API - Cause of Deaths</h3>
+			<h3 class="text-center">Gráficos API - Happiness Reports</h3>
 			<div class="button-center">
 				<Button class="m-1" color="primary" on:click={filterAreaData(Data, 'Afghanistan')}
 					>Gráfico de Area</Button
