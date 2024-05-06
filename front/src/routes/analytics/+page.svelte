@@ -11,8 +11,8 @@
 
   import { onMount } from 'svelte';
 
-  const causesAPI = 'http://localhost:10000/api/v2/cause-of-deaths';
-  const reportsAPI = 'http://localhost:10000/api/v1/happiness-reports';
+  const causesAPI = 'http://sos2324-21.appspot.com/api/v2/cause-of-deaths';
+  const reportsAPI = 'http://sos2324-21.appspot.com/api/v1/happiness-reports';
   let Data = [];
 
   async function getDataCauses() {

@@ -93,6 +93,20 @@
 		}
 	}
 
+    async function loadInitialData() {
+		if (confirm('¿Seguro que quiere cargar los reportes iniciales?')) {
+			try {
+                let response =  await fetch(`${API}/loadInitialData`);
+                if(response.status == 200 || response.status == 201){
+                    getReports();
+                    successMessage = `Datos cargados exitosamente`; // Mostrar mensaje de éxito
+                }
+            } catch(e) {
+                errorMsg = e;
+            }
+		}
+	}
+
     async function deleteAllReports() {
 		try {
 			let response = await fetch(API, { method: 'DELETE' });
@@ -259,7 +273,10 @@ ERROR: {errorMsg}
             </div>
 			<div class="d-flex justify-content-between">
 				<div>
-					<Button color="danger" outline on:click={confirmDelete}>Borrar todos los reportes</Button>
+					<Button style="margin-right: 10px;" color="danger" outline on:click={confirmDelete}>Borrar todos los reportes</Button>
+				</div>
+                <div>
+					<Button color="primary" outline on:click={loadInitialData}>Cargar reportes iniciales</Button>
 				</div>
 			</div>
 		</div>

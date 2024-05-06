@@ -9,9 +9,14 @@
 
 <script>
 	import { onMount } from 'svelte';
+    import { dev } from '$app/environment';
 	import { Button, Row, Col } from '@sveltestrap/sveltestrap';
 
-	const API = 'https://sos2324-21.appspot.com/api/v1/happiness-reports';
+	let API = 'https://sos2324-21.appspot.com/api/v1/happiness-reports';
+
+    if (dev) {
+		API = 'http://localhost:10000/api/v1/happiness-reports';
+	}
 
 	let Data = [];
 	//let pieData = [];
