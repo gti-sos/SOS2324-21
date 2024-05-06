@@ -1,9 +1,9 @@
 <svelte:head>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/highcharts-more.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<script src="https://code.highcharts.com/modules/series-label.js"></script>
 </svelte:head>
 
@@ -103,62 +103,66 @@
 				{ name: 'Parkinson', data: data.map((item) => item.parkinson) },
 				{ name: 'Nutricional Deficiencie', data: data.map((item) => item.nutricional_deficiencie) },
 				{ name: 'Malaria', data: data.map((item) => item.malaria) }
-			]
+			],
+			accessibility: {
+				enabled: true 
+			}
 		});
 	}
 
     function filterPieData(data, selectedCountry) {
     // Filtrar los datos solo para el país seleccionado
-    const filteredData = data.filter((item) => item.country_name === selectedCountry);
+		const filteredData = data.filter((item) => item.country_name === selectedCountry);
 
-    if (filteredData.length === 0) {
-        console.error('No se encontraron datos para el país seleccionado.');
-        return;
-    }
+		if (filteredData.length === 0) {
+			console.error('No se encontraron datos para el país seleccionado.');
+			return;
+		}
 
-    // Calcular la suma total de muertes por enfermedad en todos los años
-    const totalData = filteredData.reduce(
-        (total, item) => {
-            return {
-                meningitis: total.meningitis + item.meningitis,
-                alzheimer: total.alzheimer + item.alzheimer,
-                parkinson: total.parkinson + item.parkinson,
-                nutricional_deficiencie: total.nutricional_deficiencie + item.nutricional_deficiencie,
-                malaria: total.malaria + item.malaria
-            };
-        },
-        { meningitis: 0, alzheimer: 0, parkinson: 0, nutricional_deficiencie: 0, malaria: 0 }
-    );
+		// Calcular la suma total de muertes por enfermedad en todos los años
+		const totalData = filteredData.reduce(
+			(total, item) => {
+				return {
+					meningitis: total.meningitis + item.meningitis,
+					alzheimer: total.alzheimer + item.alzheimer,
+					parkinson: total.parkinson + item.parkinson,
+					nutricional_deficiencie: total.nutricional_deficiencie + item.nutricional_deficiencie,
+					malaria: total.malaria + item.malaria
+				};
+			},
+			{ meningitis: 0, alzheimer: 0, parkinson: 0, nutricional_deficiencie: 0, malaria: 0 }
+    	);
 
-    // Calcular los porcentajes de muertes por enfermedad
-    const totalDeaths = Object.values(totalData).reduce((total, value) => total + value, 0);
-    const percentagesData = Object.keys(totalData).reduce((result, key) => {
-        result[key] = (totalData[key] / totalDeaths) * 100;
-        return result;
-    }, {});
+		// Calcular los porcentajes de muertes por enfermedad
+		const totalDeaths = Object.values(totalData).reduce((total, value) => total + value, 0);
+		const percentagesData = Object.keys(totalData).reduce((result, key) => {
+			result[key] = (totalData[key] / totalDeaths) * 100;
+			return result;
+		}, {});
 
-    pieChart(percentagesData, selectedCountry);
-}
+    	pieChart(percentagesData, selectedCountry);
+	}
 
-function pieChart(data, selectedCountry) {
-    Highcharts.chart('container', {
-        chart: {
-            type: 'pie'
-        },
-        title: {
-            text: 'Porcentaje de enfermedades a lo largo de los años en ' + selectedCountry
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        series: [
-            {
-                name: 'Enfermedades',
-                data: Object.keys(data).map((key) => ({ name: key, y: data[key] }))
-            }
-        ]
-    });
-}
+	function pieChart(data, selectedCountry) {
+		if (!document.getElementById('container')) return; // Verifica si el contenedor existe
+		Highcharts.chart('container', {
+			chart: {
+				type: 'pie'
+			},
+			title: {
+				text: 'Porcentaje de enfermedades a lo largo de los años en ' + selectedCountry
+			},
+			tooltip: {
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			series: [
+				{
+					name: 'Enfermedades',
+					data: Object.keys(data).map((key) => ({ name: key, y: data[key] }))
+				}
+			]
+		});
+	}
 </script>
 
 
