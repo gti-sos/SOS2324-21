@@ -192,11 +192,11 @@
 
 <style>
 	.column-container {
-		border-radius: 10px; /* Esquinas redondeadas */
-		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra */
-		padding: 20px; /* Espacio interno */
-		background-color: white; /* Color de fondo */
-		margin: 20px;
+		border-radius: 10px; 
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		padding: 2rem; 
+		background-color: white; 
+		margin: 2rem;
 		display: flex;
 		flex-direction: column;
 	}
@@ -204,4 +204,9 @@
 		display: flex;
 		justify-content: center;
 	}
+	.subtitle {
+        text-align: center;
+        font-style: italic;
+        color: #666;
+    }
 </style>

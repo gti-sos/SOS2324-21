@@ -12,9 +12,9 @@
 			><ButtonDropdown>
 				<DropdownToggle color="" caret>Graphics</DropdownToggle>
 				<DropdownMenu>
-					<DropdownItem><a href="/happiness-reports/graph">Happiness-reports Highcharts Graph</a></DropdownItem>
-					<DropdownItem><a href="/cause-of-deaths/graphMRC">Highcharts Graphics</a></DropdownItem>
-					<DropdownItem><a href="/cause-of-deaths/graphD3">D3 Graphics</a></DropdownItem>
+					<DropdownItem><a href="/happiness-reports/graph">Highcharts - Happiness Reports</a></DropdownItem>
+					<DropdownItem><a href="/cause-of-deaths/graphHighchart">Highcharts - Cause of Deaths</a></DropdownItem>
+					<DropdownItem><a href="/cause-of-deaths/graphBillboard">Billboard - Cause of Deaths</a></DropdownItem>
 				</DropdownMenu>
 			</ButtonDropdown>
 		</NavItem>
