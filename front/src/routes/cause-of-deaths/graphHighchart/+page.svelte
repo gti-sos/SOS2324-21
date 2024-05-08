@@ -43,6 +43,11 @@
 
 				allData = allData.concat(data);
 				page++;
+
+				// Limitar la cantidad de datos a cargar
+				if (allData.length >= 100) {
+					break;
+				}
 			}
 
 			//console.log(`All data received: ${JSON.stringify(allData, null, 2)}'`);
