@@ -43,11 +43,6 @@
 
 				allData = allData.concat(data);
 				page++;
-
-				// Limitar la cantidad de datos a cargar
-				if (allData.length >= 100) {
-					break;
-				}
 			}
 
 			//console.log(`All data received: ${JSON.stringify(allData, null, 2)}'`);
@@ -209,4 +204,9 @@
 		display: flex;
 		justify-content: center;
 	}
+	.subtitle {
+        text-align: center;
+        font-style: italic;
+        color: #666;
+    }
 </style>
