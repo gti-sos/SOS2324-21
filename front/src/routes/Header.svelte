@@ -19,6 +19,16 @@
 		</NavItem>
 		<NavItem
 			><ButtonDropdown>
+				<DropdownToggle color="" caret>Usos</DropdownToggle>
+				<DropdownMenu>
+					<DropdownItem><a href="/cause-of-deaths/instagram">API Instagram - Cause of Deaths</a></DropdownItem>
+					<DropdownItem><a href="/cause-of-deaths/github">API GitHub - Cause of Deaths</a></DropdownItem>
+					<DropdownItem><a href="/integrations">Highcharts - Happiness Report</a></DropdownItem>
+				</DropdownMenu>
+			</ButtonDropdown>
+		</NavItem>
+		<NavItem
+			><ButtonDropdown>
 				<DropdownToggle color="" caret>Graphics</DropdownToggle>
 				<DropdownMenu>
 					<DropdownItem><a href="/happiness-reports/graph">Highcharts - Happiness Reports</a></DropdownItem>
@@ -27,6 +37,7 @@
 				</DropdownMenu>
 			</ButtonDropdown>
 		</NavItem>
+		
 
 		<NavLink href="/about">Sobre nosotros...</NavLink>
 	</Nav>

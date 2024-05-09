@@ -1,5 +1,5 @@
 <script>
-	//@ts-nocheck
+	
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
 	import { Button } from '@sveltestrap/sveltestrap';
@@ -9,15 +9,17 @@
 	let data_integracion = [];
 	let result = '';
 
-	let API_food_production = 'https://sos2324-20-415018.ew.r.appspot.com/api/v3/food-production';
-
+	let API_food_production = '/api/proxy/?url=https://sos2324-20-415018.ew.r.appspot.com/api/v3/food-production';
+    
 	let API = '/api/v2/cause-of-deaths';
 	if (dev) {
 		API = 'http://localhost:10000' + API;
+        API_food_production = 'http://localhost:10000' + API_food_production;
 	}
 
-	//let API = 'http://localhost:10000/api/v2/cause-of-deaths/proxy/?url=https://sos2324-20-415018.ew.r.appspot.com/api/v3/food-production';
-	onMount(async () => {
+	
+	
+    onMount(async () => {
 		await loadChartData();
 		//console.log(`Data received: ${JSON.stringify(data_integracion, null, 2)}`);
 	});
@@ -216,5 +218,7 @@
 
 <main>
     <p></p>
-	<div id="container" style="width: 90%; height: 400px; margin: 0 auto"></div>
+    
+    <Button class="m-2" color="primary" on:click={loadFood}>Cargar datos API Food Production</Button>	
+    <div id="container" style="width: 90%; height: 400px; margin: 0 auto"></div>
 </main>

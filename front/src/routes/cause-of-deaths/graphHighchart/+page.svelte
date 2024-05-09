@@ -204,9 +204,4 @@
 		display: flex;
 		justify-content: center;
 	}
-	.subtitle {
-        text-align: center;
-        font-style: italic;
-        color: #666;
-    }
 </style>
