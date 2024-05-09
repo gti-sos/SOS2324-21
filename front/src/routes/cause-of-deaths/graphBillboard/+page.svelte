@@ -49,11 +49,9 @@
         const filteredData = data.filter((item) => item.country_name === selectedCountry);
         const transformedData = filteredData.map((item) => ({
             year: item.year,
-            meningitis: item.meningitis,
 			alzheimer: item.alzheimer,
 			parkinson: item.parkinson,
-			nutricional_deficiencie: item.nutricional_deficiencie,
-			malaria: item.malaria
+			nutricional_deficiencie: item.nutricional_deficiencie
         }));
         transformedData.sort((a, b) => parseInt(a.year) - parseInt(b.year));
 
@@ -64,14 +62,12 @@
                     json: transformedData,
                     keys: {
                         x: 'year',
-                        value: ['meningitis','alzheimer', 'parkinson','nutricional_deficiencie','malaria']
+                        value: ['alzheimer', 'parkinson','nutricional_deficiencie']
                     },
                     types: {
                         alzheimer: area(),
                         parkinson: areaSpline(),
-                        nutricional_deficiencie: areaSpline(),
-                        malaria: areaSpline(),
-                        meningitis: areaSpline()
+                        nutricional_deficiencie: areaSpline()
                     }
                 },
                 axis: {

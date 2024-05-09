@@ -25,7 +25,7 @@
 	async function loadChartData() {
 		await loadData();
 		const chartData = prepareChartData(data_integracion);
-		createChart(chartData);
+		createBubbleChart(chartData);
 	}
 
 	async function loadFood() {
@@ -132,69 +132,77 @@
 				totalProduction: totalProduction
 			};
 		});
+		console.log(`Data grafica: ${JSON.stringify(deathByNutritionalDeficiency, null, 2)}`);
 		return deathByNutritionalDeficiency;
 	}
 
 	// GRÁFICA DE TIPO COMBINACION
-	function createChart(data) {
+	function createBubbleChart(data) {
+		const seriesData = data.map((item) => ({
+			x: item.year,
+			y: item.totalProduction / 1000,
+			z: item.deaths, // Tamaño de la burbuja, divido por 1000 para ajustar visualmente
+			year: item.year,
+            //color: getRandomColor()
+		}));
+
 		Highcharts.chart('container', {
+			chart: {
+				type: 'bubble',
+				plotBorderWidth: 1,
+				zoomType: 'xy'
+			},
+			legend: {
+				enabled: false
+			},
 			title: {
-				text: 'Producción Total y Deficiencia Nutricional por Año en Eswatini',
-				align: 'left'
+				text: 'Producción Total y Deficiencia Nutricional por Año en Eswatini'
 			},
 			xAxis: {
-				categories: data.map((item) => item.year),
+				gridLineWidth: 1,
 				title: {
 					text: 'Año'
 				}
 			},
-			yAxis: [
-				{
-					title: {
-						text: 'Número de muertes por deficiencia nutricional'
-					},
-					opposite: false
+			yAxis: {
+				title: {
+					text: 'Cantidad de Producción (ton)'
 				},
-				{
-					title: {
-						text: 'Producción total'
-					},
-					opposite: true
+				labels: {
+					format: '{value}'
 				}
-			],
+			},
 			tooltip: {
-				shared: true,
-				valueSuffix: ''
+				useHTML: true,
+				headerFormat: '<table>',
+				pointFormat:
+					'<tr><th colspan="2"><h4>En {point.year}</h4></th></tr>' + 
+                    '<tr><th>Deficiencia Nutricional:</th><td>{point.z} personas</td></tr>' +
+					'<tr><th>Producción Total:</th><td>{point.y} ton</td></tr>' 
+					,
+				footerFormat: '</table>',
+				followPointer: true
 			},
 			plotOptions: {
-				column: {
-					borderRadius: '25%'
+				series: {
+					dataLabels: {
+						enabled: true
+					}
 				}
 			},
 			series: [
 				{
-					type: 'column',
-					name: 'Deficiencia Nutricional',
-					data: data.map((item) => item.deaths),
-					yAxis: 1
-				},
-				{
-					type: 'column',
-					name: 'Producción Total',
-					data: data.map((item) => item.totalProduction),
-					yAxis: 1
-				},
-				{
-					type: 'line',
-					name: 'Promedio',
-					data: data.map((item) => (item.deaths + item.totalProduction) / 2),
-					marker: {
-						enabled: false
-					}
+					data: seriesData
 				}
 			]
 		});
 	}
+
+    function getRandomColor() {
+        return '#' + Math.floor(Math.random()*16777215).toString(16);
+    }
+
+    
 </script>
 
 <svelte:head>
@@ -202,12 +210,11 @@
 	<script src="https://code.highcharts.com/modules/data.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script src="https://code.highcharts.com/modules/series-label.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 </svelte:head>
 
 <main>
-	<h3>Gráfico de Producción Total y Deficiencia Nutricional por Año en Eswatini</h3>
-	<div id="container" style="width: 100%; height: 400px;"></div>
-	{#if data_integracion.length == 0}
-		<Button on:click={loadFood} color="warning">Cargar datos</Button>
-	{/if}
+    <p></p>
+	<div id="container" style="width: 90%; height: 400px; margin: 0 auto"></div>
 </main>

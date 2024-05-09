@@ -28,6 +28,7 @@
 		"@sveltestrap/sveltestrap": "^6.2.7",
 		"billboard.js": "^3.11.3",
 		"express": "^4.19.2",
+		"highcharts": "^11.4.1",
 		"svelte-routing": "^2.12.0"
 	}
 }

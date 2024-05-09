@@ -7,7 +7,16 @@
 		<NavLink href="/">Inicio</NavLink>
 		<NavLink href="/cause-of-deaths">Cause of Deaths</NavLink>
 		<NavLink href="/happiness-reports">Happiness reports</NavLink>
-		<NavLink href="/analytics">Analytics</NavLink>
+		<NavLink href="/analytics">Análisis</NavLink>
+		<NavItem
+			><ButtonDropdown>
+				<DropdownToggle color="" caret>Integraciones</DropdownToggle>
+				<DropdownMenu>
+					<DropdownItem><a href="/cause-of-deaths/integrationProxy">Highcharts - Cause of Deaths</a></DropdownItem>
+					<DropdownItem><a href="/integrations">Highcharts - Happiness Report</a></DropdownItem>
+				</DropdownMenu>
+			</ButtonDropdown>
+		</NavItem>
 		<NavItem
 			><ButtonDropdown>
 				<DropdownToggle color="" caret>Graphics</DropdownToggle>
