@@ -1,13 +1,12 @@
-import express from 'express';
+/*A*/ import express from 'express';
 import bodyParser from 'body-parser';
 import dataStore from'nedb';
 import {handler} from "./front/build/handler.js"; //asi conectamos con el frontend
 import cors from "cors";
-
 import {loadBackendMRC} from "./back/backend2-MRC.js";
 import {loadBackendJMM} from "./back/backend-JMM.js";
 import {api_AMG} from "./back/index-AMG.js";
-
+/* B */
 let dbHappiness = new dataStore();
 let dbCauseDeaths = new dataStore();
 let dbChocolates = new dataStore();
@@ -19,7 +18,7 @@ const PORT = (process.env.PORT || 10000);
 //app.use(express.static("./root"));
 app.use(bodyParser.json());
 app.use(cors());
-
+/* C */
 app.get('/api/v1/happiness-reports/docs', (req, res) => {
     res.redirect('https://documenter.getpostman.com/view/32994781/2sA2xh2swf');
 });

@@ -68,6 +68,7 @@ function loadBackendMRC(app, db){
 
     // 1 POST
     app.post(API_BASE + "/", (req, res) => {
+/*G*/ 
         let report = req.body;
         let object_params = ["country_name", "code", "year", "meningitis", "alzheimer", "parkinson", "nutricional_deficiencie", "malaria"];
         const queryParams = Object.keys(report);
@@ -90,7 +91,7 @@ function loadBackendMRC(app, db){
                 }
             })
         }
-
+/* H */
     });
 
     // 1 GET

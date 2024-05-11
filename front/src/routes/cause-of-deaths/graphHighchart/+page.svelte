@@ -172,7 +172,7 @@
 		<div class="column-container">
 			<h3 class="text-center">Gráficos API - Cause of Deaths</h3>
 			<div class="button-center">
-				<Button class="m-1" color="primary" on:click={filterColumnData(columnData, 'Morocco')}
+				<Button class="m-1" color="primary" on:click={filterColumnData(columnData, 'United States')}
 					>Gráfico de Columnas</Button
 				>
 				<Button class="m-1" color="primary" on:click={filterPieData(pieData, 'Germany')}

@@ -18,7 +18,7 @@
         try {
             const response = await fetch(url, options);
             const result = await response.json();
-            console.log('Usuarios:', result); // Imprime los usuarios por consola
+            console.log('Usuarios:', result);
         } catch (error) {
             console.error('Error fetching users:', error);
         }
