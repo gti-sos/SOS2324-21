@@ -144,7 +144,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Norway",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Germany",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -152,7 +152,7 @@
 						"api",
 						"v2",
 						"cause-of-deaths",
-						"Norway"
+						"Germany"
 					]
 				}
 			},
@@ -223,7 +223,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Norway",
+					"raw": "{{SERVER}}/api/v2/cause-of-deaths/Germany",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -231,7 +231,7 @@
 						"api",
 						"v2",
 						"cause-of-deaths",
-						"Norway"
+						"Germany"
 					]
 				}
 			},
