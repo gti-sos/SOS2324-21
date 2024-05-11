@@ -89,7 +89,6 @@
 
 		// Crear las columnas para el gráfico
 		const years = Object.keys(songsByYear).sort();
-		const songCounts = years.map((year) => songsByYear[year]);
 
 		// Obtener detalles de canciones por año
 		const songDetailsByYear = {};
@@ -102,8 +101,6 @@
 				songDetailsByYear[year] = [songDetail];
 			}
 		});
-
-		const artistIds = [320569549, 666324254];
 
 		// Generar la gráfica de Highcharts
 		Highcharts.chart('container', {
