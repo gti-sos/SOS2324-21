@@ -149,9 +149,9 @@
 						details: songDetailsByYear[year] || []
 					})),
 					marker: {
-						symbol: 'star' 
-					}, 
-                    color: '#FF007F'
+						symbol: 'star'
+					},
+					color: '#FF007F'
 				}
 			]
 		});
@@ -170,6 +170,18 @@
 <Row>
 	<Col>
 		<div class="column-container">
+			<Row style="">
+				<Col xs="auto" class="text-right"><img src="../../shazam.png" alt="Logo Shazam" width="40" height="40" /></Col>
+				<Col>
+					<h2 class="title-text">
+						Datos obtenidos de la API pública: <a
+							class="title-link"
+							href="https://rapidapi.com/apidojo/api/shazam"
+							target="_blank">https://rapidapi.com/apidojo/api/shazam</a
+						>
+					</h2>
+				</Col>
+			</Row>
 			<div id="container" style="width:90%; height:500px; margin: 0 auto;"></div>
 		</div>
 	</Col>
@@ -188,5 +200,16 @@
 
 	#container {
 		padding: 1rem;
+	}
+
+	.title-text {
+		text-align: center;
+		font-size: 24px;
+		font-weight: bold;
+	}
+
+	.title-link {
+		color: #007bff;
+		text-decoration: none;
 	}
 </style>

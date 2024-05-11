@@ -22,8 +22,8 @@
 				<DropdownToggle color="" caret>Usos</DropdownToggle>
 				<DropdownMenu>
 					<DropdownItem><a href="/cause-of-deaths/instagram">API Instagram - Cause of Deaths</a></DropdownItem>
-					<DropdownItem><a href="/cause-of-deaths/github">API GitHub - Cause of Deaths</a></DropdownItem>
 					<DropdownItem><a href="/cause-of-deaths/shazam">API Shazam - Cause of Deaths</a></DropdownItem>
+					<DropdownItem><a href="/cause-of-deaths/dogs">API Dogs - Cause of Deaths</a></DropdownItem>
 				</DropdownMenu>
 			</ButtonDropdown>
 		</NavItem>
