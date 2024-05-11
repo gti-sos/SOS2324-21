@@ -1,45 +1,12 @@
 {
 	"info": {
 		"_postman_id": "0e3e9af4-aab3-4592-b5d0-06d39ddef5cd",
-		"name": "Cause-of-Deaths API Testing",
+		"name": "Cause-of-Deaths API Testing V1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "32977574",
 		"_collection_link": "https://sos2324-21.postman.co/workspace/SOS-21-Workspace~8bb8fc11-4301-4a6c-8626-bcccc27381b4/collection/32977574-0e3e9af4-aab3-4592-b5d0-06d39ddef5cd?action=share&source=collection_link&creator=32977574"
 	},
 	"item": [
-		{
-			"name": "Delete All Data",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/",
-					"host": [
-						"{{SERVER}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"cause-of-deaths",
-						""
-					]
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "Load Initial Data",
 			"event": [
@@ -47,11 +14,13 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"});"
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -83,9 +52,14 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verificar el tamñaoi del array devuelto\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('array').that.has.lengthOf(10);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -118,7 +92,8 @@
 							"    pm.response.to.have.status(201);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -160,7 +135,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -191,9 +167,11 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -202,7 +180,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"country_name\": \"Norway\",\r\n        \"code\": \"NOW\",\r\n        \"year\": 2001,\r\n        \"meningitis\": 2881,\r\n        \"alzheimer\": 1162,\r\n        \"parkinson\": 378,\r\n        \"nutricional_deficiencie\": 2441,\r\n        \"malaria\": 239\r\n}",
+					"raw": "{\r\n        \"country_name\": \"Afghanistan\",\r\n        \"code\": \"AFG\",\r\n        \"year\": 1992,\r\n        \"meningitis\": 881,\r\n        \"alzheimer\": 162,\r\n        \"parkinson\": 378,\r\n        \"nutricional_deficiencie\": 2441,\r\n        \"malaria\": 239\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -210,7 +188,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Norway",
+					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Afghanistan/1992",
 					"host": [
 						"{{SERVER}}"
 					],
@@ -218,7 +196,8 @@
 						"api",
 						"v1",
 						"cause-of-deaths",
-						"Norway"
+						"Afghanistan",
+						"1992"
 					]
 				}
 			},
@@ -235,7 +214,8 @@
 							"    pm.response.to.have.status(200);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -268,7 +248,8 @@
 							"    pm.response.to.have.status(409);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -310,7 +291,8 @@
 							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -343,7 +325,8 @@
 							"    pm.response.to.have.status(405);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -376,7 +359,8 @@
 							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
@@ -402,6 +386,169 @@
 						"v1",
 						"cause-of-deaths",
 						"Germany"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT error 404 - not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country_name\": \"Norw\",\r\n        \"code\": \"NOW\",\r\n        \"year\": 2001,\r\n        \"meningitis\": 881,\r\n        \"alzheimer\": 1162,\r\n        \"parkinson\": 378,\r\n        \"nutricional_deficiencie\": 2441,\r\n        \"malaria\": 239\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Germany",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cause-of-deaths",
+						"Germany"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE country/year/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Afghanistan/1992",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cause-of-deaths",
+						"Afghanistan",
+						"1992"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET country/year/",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verificar el tamaño del object devuelto\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.be.an('object');\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/api/v1/cause-of-deaths/Afghanistan/1992",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cause-of-deaths",
+						"Afghanistan",
+						"1992"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/api/v1/cause-of-deaths/",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"cause-of-deaths",
+						""
 					]
 				}
 			},
