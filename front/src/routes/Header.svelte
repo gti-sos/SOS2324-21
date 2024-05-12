@@ -1,5 +1,5 @@
 <script>
-	import { Navbar, NavbarBrand, Nav, NavLink, NavItem, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem} from '@sveltestrap/sveltestrap';
+	import { Navbar, Nav, NavLink, NavItem, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem} from '@sveltestrap/sveltestrap';
 </script>
 
 
@@ -29,7 +29,4 @@
         font-weight: bold;
 		
     }
-	.barra {
-		font-size: 20px;
-	}
     </style>

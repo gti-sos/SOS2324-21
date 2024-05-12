@@ -7,27 +7,27 @@
 			<hr />
 			<h5>MARÍA LUISA</h5>
 			<li class="ul-peq">
-				Uso API pública <a href="/cause-of-deaths/instagram">Instagram</a> de tipo textual
+				Uso API pública de <a href="/cause-of-deaths/shazam">Shazam</a> - widget
             </li>
 			<li class="ul-peq">
-				Uso API pubica de <a href="/cause-of-deaths/shazam">Shazam</a> - widget
+				Uso API pública <a href="/cause-of-deaths/instagram">Instagram</a> - widget
             </li>
 			<li class="ul-peq">
-				Uso API pubica de razas de <a href="/cause-of-deaths/dogs">Perros</a> - widget
+				Uso API pública de razas de <a href="/cause-of-deaths/dogs">Perros</a> - widget
             </li>
 
 			<h5>JESÚS</h5>
 			<li class="ul-peq">
-				Uso API pública <a href="/happiness-reports/use-c3">Uso C3 ciudades y Poblacion</a> de tipo widget
+				Uso API pública <a href="/happiness-reports/use-c3">C3 ciudades y Poblacion</a> - widget
             </li>
 			<li class="ul-peq">
-				Uso API pública <a href="/happiness-reports/use-jobs">Uso de Highcharts para tipos de contrato</a> de tipo widget
+				Uso API pública <a href="/happiness-reports/use-jobs">Highcharts para tipos de contrato</a> - widget
             </li>
 			<li class="ul-peq">
-				Uso API pública <a href="/happiness-reports/use-cars">Uso de Highcharts para procentaje de tipos de coche</a> de tipo widget
+				Uso API pública <a href="/happiness-reports/use-cars">Highcharts para procentaje de tipos de coche</a> - widget
             </li>
 			<li class="ul-peq">
-				Uso API pública <a href="/happiness-reports/use-critics">Uso de Highcharts para ranking de críticas de videojuegos</a> de tipo widget
+				Uso API pública <a href="/happiness-reports/use-critics">Highcharts para ranking de críticas de videojuegos</a> - widget
             </li>
 			<hr />
 			<h4>Integraciones</h4>

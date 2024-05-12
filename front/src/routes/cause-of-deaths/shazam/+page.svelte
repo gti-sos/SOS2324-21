@@ -170,18 +170,21 @@
 <Row>
 	<Col>
 		<div class="column-container">
-			<Row style="">
-				<Col xs="auto" class="text-right"><img src="../../shazam.png" alt="Logo Shazam" width="40" height="40" /></Col>
-				<Col>
+			<Row class="justify-content-center">
+				<Col sm="2" class="d-flex justify-content-end align-items-center">
+					<img src="../../shazam.png" alt="Logo Shazam" width="40" height="40" style="margin-right: 10px;">
+				</Col>
+				<Col sm="10" class="d-flex align-items-center">
 					<h2 class="title-text">
 						Datos obtenidos de la API pública: <a
 							class="title-link"
 							href="https://rapidapi.com/apidojo/api/shazam"
-							target="_blank">https://rapidapi.com/apidojo/api/shazam</a
-						>
+							target="_blank">https://rapidapi.com/apidojo/api/shazam</a>
 					</h2>
 				</Col>
 			</Row>
+			
+
 			<div id="container" style="width:90%; height:500px; margin: 0 auto;"></div>
 		</div>
 	</Col>
