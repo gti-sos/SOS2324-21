@@ -76,7 +76,7 @@
 			}
 		});
 
-		console.log(`Integrated data: ${JSON.stringify(integratedData, null, 2)}`);
+		//console.log(`Integrated data: ${JSON.stringify(integratedData, null, 2)}`);
 
 		data_integracion = integratedData;
 	}
@@ -93,7 +93,7 @@
 			});
 			result = JSON.stringify(filteredData, null, 2);
 			data = filteredData;
-			console.log(`Data: ${JSON.stringify(data, null, 2)}`);
+			//console.log(`Data: ${JSON.stringify(data, null, 2)}`);
 		} catch (error) {
 			console.log(error);
 		}
@@ -111,7 +111,7 @@
 			});
 			result = JSON.stringify(filteredData, null, 2);
 			data_food = filteredData;
-			console.log(`Data food: ${JSON.stringify(data_food, null, 2)}`);
+			//console.log(`Data food: ${JSON.stringify(data_food, null, 2)}`);
 		} catch (error) {
 			console.log(error);
 		}
@@ -134,7 +134,7 @@
 				totalProduction: totalProduction
 			};
 		});
-		console.log(`Data grafica: ${JSON.stringify(deathByNutritionalDeficiency, null, 2)}`);
+		//console.log(`Data grafica: ${JSON.stringify(deathByNutritionalDeficiency, null, 2)}`);
 		return deathByNutritionalDeficiency;
 	}
 

@@ -99,10 +99,10 @@
 <Row>
     <Col>
         <div class="column-container">
-            <h3 class="text-center">Comparación de todas las enfermedades a lo largo de los años, en México</h3>
+            <h3 class="text-center">Comparación de todas las enfermedades a lo largo de los años en Maldivas</h3>
             <h5 class="subtitle">Gráfico de Área - Billboard.js</h5>
             <div class="button-center">
-                <Button class="m-1" color="primary" on:click={filterAreaData(areaData, 'Mexico')}>Generar</Button>
+                <Button class="m-1" color="primary" on:click={filterAreaData(areaData, 'Maldives')}>Generar</Button>
             </div>
         </div>
     </Col>

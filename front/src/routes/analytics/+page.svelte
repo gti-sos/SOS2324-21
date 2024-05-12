@@ -22,14 +22,14 @@
         });
         let allData = [];
         let page = 1;
-        let limit = 10; // Cantidad de datos a recuperar por página
+        let limit = 10;
 
         while (true) {
             const res = await fetch(`${causesAPI}?limit=${limit}&offset=${(page - 1) * limit}`);
             const data = await res.json();
 
             if (data.length === 0) {
-                break; // No hay más datos, salir del bucle
+                break;
             }
 
             allData = allData.concat(data);
@@ -58,9 +58,12 @@
     const causesData = await getDataCauses(causesAPI);
     const reportsData = await getData(reportsAPI);
 
+    //console.log(causesData)
+    //console.log(reportsData)
+
     let dataMixed = [];
     for (var j = 0; j < reportsData.length; j++) {
-        for (var i = 0; i < reportsData.length; i++) {
+        for (var i = 0; i < causesData.length; i++) {
             if (causesData[i].year == reportsData[j].year){
                 dataMixed.push({
                     "year": reportsData[j].year,
@@ -70,16 +73,16 @@
                     "nutricional_deficiencie": causesData[i].nutricional_deficiencie,
                     "alzheimer": causesData[i].alzheimer
                 });
+                break;
             }
         }
     }
-    console.log(dataMixed)
+    //console.log(dataMixed)
     dataMixed.sort(function(a, b) {
         return a.year - b.year;
     });
-      // Convertir objeto combinado en un array
-      Data = dataMixed
-      //console.log(Data)
+    Data = dataMixed
+    //console.log(Data)
   }
   
   function createChart() {
@@ -88,7 +91,7 @@
             type: 'bar'
         },
         title: {
-            text: 'Datos por año'
+            text: 'Afecto negativo y deficiencia nutricional por años'
         },
         xAxis: {
             title: {
@@ -138,4 +141,12 @@
 
 
 
-<div id="container" style="width:100%; height:400px;"></div>
+<div id="container" style="height:400px;"></div>
+
+<style>
+    #container {
+        width: 90%;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+</style>

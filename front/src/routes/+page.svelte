@@ -3,7 +3,7 @@
     import { Container, Row, Col } from '@sveltestrap/sveltestrap';
 </script>
 
-<Container>
+<Container class="column-container">
     <p></p>
     <Row>
         <Col class="text-center">
@@ -44,8 +44,8 @@
         <Col>
             <h2>APIs:</h2>
             <ul>
-                <li>Cause of deaths - V1: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/cause-of-deaths/docs">https://sos2324-21.ew.r.appspot.com/api/v1/cause-of-deaths/docs</a> (developed by Maria Luisa Rodriguez Cabrera)</li>
-                <li>Cause of deaths - V2: <a href="https://sos2324-21.ew.r.appspot.com/api/v2/cause-of-deaths/docs">https://sos2324-21.ew.r.appspot.com/api/v2/cause-of-deaths/docs</a> (developed by Maria Luisa Rodriguez Cabrera)</li>
+                <li>Cause of deaths - V1: <a href="https://documenter.getpostman.com/view/32977574/2sA2xb7GDm">https://sos2324-21.ew.r.appspot.com/api/v1/cause-of-deaths/docs</a> (developed by Maria Luisa Rodriguez Cabrera)</li>
+                <li>Cause of deaths - V2: <a href="https://documenter.getpostman.com/view/32977574/2sA35MzK18">https://sos2324-21.ew.r.appspot.com/api/v2/cause-of-deaths/docs</a> (developed by Maria Luisa Rodriguez Cabrera)</li>
                 <li>Happiness reports: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs">https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs</a> (developed by Jesús Manuel Méndez Martínez)</li>
                 <li>Chocolate Ratings: <a href="https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs">https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs</a> (developed by Alejandro Morilla García)</li>
             </ul>
@@ -57,5 +57,10 @@
     h2 {
         font-size: 1.5em;
     }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+    
     
 </style>

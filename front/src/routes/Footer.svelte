@@ -18,7 +18,7 @@
     }
 
     h3 {
-        color: green;
+        color: #008000;
         font-size: 1.2em;
     }
 </style>
