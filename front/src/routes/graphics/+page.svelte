@@ -26,6 +26,9 @@
 			<li class="ul-peq">
 				Biblioteca Gráfica <a href="/happiness-reports/graph">Highcharts</a>
 			</li>
+			<li class="ul-peq">
+				Biblioteca Gráfica  <a href="/happiness-reports/graph-awesome">C3 de Awesome Charts</a>:
+            </li>
 		</ul>
 	</div>
 </div>

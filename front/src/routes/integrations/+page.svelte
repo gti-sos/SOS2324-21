@@ -18,7 +18,16 @@
 
 			<h5>JESÚS</h5>
 			<li class="ul-peq">
-				Uso API pública <a href="/happiness-reports/integration-c3">Integracion C3</a> de tipo widget
+				Uso API pública <a href="/happiness-reports/use-c3">Uso C3 ciudades y Poblacion</a> de tipo widget
+            </li>
+			<li class="ul-peq">
+				Uso API pública <a href="/happiness-reports/use-jobs">Uso de Highcharts para tipos de contrato</a> de tipo widget
+            </li>
+			<li class="ul-peq">
+				Uso API pública <a href="/happiness-reports/use-cars">Uso de Highcharts para procentaje de tipos de coche</a> de tipo widget
+            </li>
+			<li class="ul-peq">
+				Uso API pública <a href="/happiness-reports/use-critics">Uso de Highcharts para ranking de críticas de videojuegos</a> de tipo widget
             </li>
 			<hr />
 			<h4>Integraciones</h4>

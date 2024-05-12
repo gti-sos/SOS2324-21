@@ -74,10 +74,10 @@
 <Row>
   <Col>
     <div class="column-container">
-      <h3 class="text-center">Population of Cities</h3>
+      <h3 class="text-center">Poblacion en ciudades</h3>
       <div class="button-center">
         <Button class="m-1" color="primary" on:click={generateBarChart}>
-          Generate Bar Chart
+          Generar gráfico de barras
         </Button>
       </div>
     </div>
