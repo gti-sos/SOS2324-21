@@ -3,29 +3,22 @@
   import { Button, Row, Col } from '@sveltestrap/sveltestrap';
   import Highcharts from 'highcharts';
 
-  let API = 'https://opencritic-api.p.rapidapi.com/game/hall-of-fame';
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': '70279dac2dmsh1a9b57adeb8f4e3p14fbddjsn7c8f8225b009',
-      'X-RapidAPI-Host': 'opencritic-api.p.rapidapi.com'
-    }
-  };
-
+  let API = 'http://localhost:10000/proxyCritics';
   let data = null;
 
   onMount(async () => {
-    await fetchData();
+      await fetchData();
   });
+
 
   const fetchData = async () => {
     try {
-      const response = await fetch(API, options);
-      const result = await response.json();
-      data = result;
-      console.log(data);
+        const response = await fetch(API);
+        const result = await response.json();
+        data = result;
+        console.log(data);
     } catch (error) {
-      console.error(error);
+        console.error(error);
     }
   };
 

@@ -27,7 +27,7 @@
 				Uso API pública <a href="/happiness-reports/use-cars">Highcharts para procentaje de tipos de coche</a> - widget
             </li>
 			<li class="ul-peq">
-				Uso API pública <a href="/happiness-reports/use-critics">Highcharts para ranking de críticas de videojuegos</a> - widget
+				Uso API pública mediante un proxy<a href="/happiness-reports/use-critics">Highcharts para ranking de críticas de videojuegos</a> - widget 
             </li>
 			<hr />
 			<h4>Integraciones</h4>
