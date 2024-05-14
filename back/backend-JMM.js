@@ -1,4 +1,7 @@
+import request from 'request';
+
 const API_BASE = '/api/v1/happiness-reports';
+
 
 var initialReports = [
     {
@@ -275,6 +278,28 @@ function loadBackendJMM(app, db){
             }
         });
     });
+
+    app.use("/proxyCritics", function(req, res) {
+        var url = "https://opencritic-api.p.rapidapi.com/game/hall-of-fame";
+        var options = {
+            url: url,
+            headers: {
+                'X-RapidAPI-Key': '70279dac2dmsh1a9b57adeb8f4e3p14fbddjsn7c8f8225b009',
+                'X-RapidAPI-Host': 'opencritic-api.p.rapidapi.com'
+            }
+        };
+        console.log('piped: ' + req.url);
+        request(options, (error, response, body) => {
+            if (error) {
+                console.log(error);
+                res.status(500).send(error);
+                return;
+            }
+            console.log(response.statusCode);
+            res.send(body);
+        });
+    });
+    
 
 };
 
