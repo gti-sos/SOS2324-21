@@ -1,4 +1,4 @@
-/*A*/ import express, { response } from 'express';
+/*A*/ import express from 'express';
 import bodyParser from 'body-parser';
 import dataStore from'nedb';
 import {handler} from "./front/build/handler.js"; //asi conectamos con el frontend
@@ -6,7 +6,6 @@ import cors from "cors";
 import {loadBackendMRC} from "./back/backend2-MRC.js";
 import {loadBackendJMM} from "./back/backend-JMM.js";
 import {api_AMG} from "./back/index-AMG.js";
-import { error } from 'console';
 
 /* B */
 let dbHappiness = new dataStore();
@@ -15,7 +14,7 @@ let dbChocolates = new dataStore();
 
 let app = express();
 
-const PORT = (process.env.PORT || 10000);
+const PORT = (process.env.PORT || 8080);
 
 //app.use(express.static("./root"));
 app.use(bodyParser.json());
