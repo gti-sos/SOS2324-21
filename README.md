@@ -16,3 +16,6 @@
     - API Docs - Happiness reports: [https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs](https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs) (developed by Jesús Manuel Méndez Martínez)
     - API Docs - Happiness reports demo: [https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs/utils-demo](https://sos2324-21.ew.r.appspot.com/api/v1/happiness-reports/docs/utils-demo) (developed by Jesús Manuel Méndez Martínez)
     - API Docs - Chocolate ratings: [https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs](https://sos2324-21.ew.r.appspot.com/api/v1/chocolate-ratings/docs) (developed by Alejandro Morilla García)
+
+-  **Docker**:
+    - Para lanzar el contenedor con el proyecto al completo simplemente necesitarás tener Docker Desktop instalado en tu equipo y escribir el siguiente comando: docker run -p 12000:8080 "marrodcab12/sos2324-21:0.0.1"
