@@ -3,7 +3,7 @@
   import { Button, Row, Col } from '@sveltestrap/sveltestrap';
   import Highcharts from 'highcharts';
 
-  let API = 'http://localhost:10000/proxyCritics';
+  let API = 'https://sos2324-21.ew.r.appspot.com/proxyCritics';
   let data = null;
 
   onMount(async () => {
