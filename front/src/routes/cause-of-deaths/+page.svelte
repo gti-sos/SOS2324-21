@@ -136,14 +136,11 @@
 		searchParams[name] = value;
 	}
 
-
-	// Función para cambiar de página hacia adelante
 	function nextPage() {
 		offset += limit;
 		getReports();
 	}
 
-	// Función para cambiar de página hacia atrás
 	function previousPage() {
 		if (offset >= limit) {
 			offset -= limit;

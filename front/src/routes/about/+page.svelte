@@ -20,8 +20,8 @@
         <Col sm="6">
             <h2>Demo de Cause Of Deaths:</h2>
             <p></p>
-            <p>Desarrollado por Maria Luisa Rodriguez Cabrera</p>
-            <p><a href="https://sos2324-21.ew.r.appspot.com/about" target="_blank">Enlace</a></p>
+            <p>Desarrollado por Maria Luisa Rodríguez Cabrera</p>
+            <p><a href="https://youtu.be/OiTfgNK-X9c" target="_blank">https://youtu.be/OiTfgNK-X9c</a></p>
         </Col>
     </Row>
 

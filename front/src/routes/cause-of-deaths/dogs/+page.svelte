@@ -82,17 +82,7 @@
 		}
 	}
 
-	onMount(async () => {
-		try {
-			getDogs();
-			longevityData = await getLongevityData();
-			weightData = await getWeightData();
-			chartLongevityData(longevityData);
-			chartWeightData(weightData);
-		} catch (error) {
-			console.error('Error fetching dogs data:', error);
-		}
-	});
+	 	
 
 	function chartLongevityData(longevityData) {
 		Highcharts.chart('container', {

@@ -5,8 +5,6 @@ import request from 'request';
 var path_mrc = '/api/proxy';
 
 function loadBackendMRC(app, db){
-    //db.insert(initialReports);
-
 
     app.get(API_BASE + "/loadInitialData", (req, res) => {
 
@@ -36,34 +34,6 @@ function loadBackendMRC(app, db){
         var url = req.url.replace('/?url=', '');
         console.log('piped: ' + req.url);
         req.pipe(request(url)).pipe(res);
-    });
-
-    //integracion GitHub
-    app.get(API_BASE + '/getAccessTokenGH', async function (req, res) {
-        console.log("New GET to /cause-of-deaths/getAccessTokenGH");
-        const params = '?client_id=' + req.query.client_id + '&client_secret=' + req.query.client_secret + '&code=' + req.query.code;
-        await fetch('https://github.com/login/oauth/access_token'+params, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json'
-            }
-        }).then(response => {return response.json()})
-        .then(data => {    
-            res.status(200).json(data);
-        });
-    });
-
-    app.get(API_BASE + '/getGH_info', async function (req, res) {
-        console.log("New GET to /cause-of-deaths/getGH_info");
-        const result = await fetch(req.query.url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + req.query.access_token
-            }
-        });
-        const data = await result.json();
-        res.status(200).json(data);
     });
 
     // 1 POST

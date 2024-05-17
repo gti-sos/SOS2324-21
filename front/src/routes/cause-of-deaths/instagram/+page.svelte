@@ -169,11 +169,6 @@
 				<Col sm="9" class="d-flex align-items-center">
 					<h2 class="title-text">
 						Datos obtenidos de una API pública de Instagram
-                        <!-- <a
-							class="title-link"
-							href="https://rapidapi.com/apidojo/api/shazam"
-							target="_blank">https://rapidapi.com/apidojo/api/shazam</a
-						> -->
 					</h2>
 				</Col>
 			</Row>
@@ -204,8 +199,4 @@
 		font-weight: bold;
 	}
 
-	.title-link {
-		color: #007bff;
-		text-decoration: none;
-	}
 </style>
