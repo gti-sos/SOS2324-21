@@ -31,7 +31,7 @@
     "newman": "^6.1.2",
     "nyc": "^15.1.0",
     "request": "^2.88.2",
-    "svelte": "^4.2.12"
+    "svelte": "^4.2.19"
   },
   "type": "module",
   "devDependencies": {
